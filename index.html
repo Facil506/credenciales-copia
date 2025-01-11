@@ -33,22 +33,41 @@
         }
     </style>
     <script>
+        function obtenerParametrosURL() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                usuario: params.get("usuario") || "No especificado",
+                contraseña: params.get("contraseña") || "No especificada"
+            };
+        }
+
         function copiarTexto() {
-            const texto = "Usuario: usuario123\nContraseña: clave456";
+            const params = obtenerParametrosURL();
+            const texto = `Usuario: ${params.usuario}\nContraseña: ${params.contraseña}`;
             navigator.clipboard.writeText(texto).then(() => {
                 alert("¡Credenciales copiadas al portapapeles!");
             }).catch(err => {
                 alert("Error al copiar: " + err);
             });
         }
+
+        function mostrarCredenciales() {
+            const params = obtenerParametrosURL();
+            document.getElementById("usuario").textContent = params.usuario;
+            document.getElementById("contraseña").textContent = params.contraseña;
+        }
     </script>
 </head>
-<body>
+<body onload="mostrarCredenciales()">
     <div class="container">
         <h1>Credenciales</h1>
-        <p class="credenciales">Usuario: usuario123<br>Contraseña: clave456</p>
+        <p class="credenciales">
+            Usuario: <span id="usuario"></span><br>
+            Contraseña: <span id="contraseña"></span>
+        </p>
         <button onclick="copiarTexto()">Copiar Credenciales</button>
     </div>
 </body>
 </html>
+
 
