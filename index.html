@@ -59,9 +59,11 @@
         <p class="credenciales">
             <span id="usuario"></span><br>
             <span id="contraseña"></span><br>
+            <span id="pin"></span><br>
         </p>
         <button onclick="copiarUsuario()">Copiar Usuario</button>
         <button onclick="copiarContraseña()">Copiar Contraseña</button>
+        <button onclick="copiarPin()">Copiar PIN</button>
     </div>
 
     <script>
@@ -69,7 +71,8 @@
             const params = new URLSearchParams(window.location.search);
             return {
                 usuario: decodeURIComponent(params.get("usuario")) || "No especificado",
-                contraseña: decodeURIComponent(params.get("contraseña")) || "No especificada"
+                contraseña: decodeURIComponent(params.get("contraseña")) || "No especificada",
+                pin: decodeURIComponent(params.get("pin")) || "No es necesario"
             };
         }
 
@@ -93,10 +96,21 @@
             });
         }
 
+        function copiarPin() {
+            const params = obtenerParametrosURL();
+            const texto = params.pin;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert("¡PIN copiado al portapapeles!");
+            }).catch(err => {
+                alert("Error al copiar: " + err);
+            });
+        }
+
         function mostrarCredenciales() {
             const params = obtenerParametrosURL();
             document.getElementById("usuario").textContent = params.usuario;
             document.getElementById("contraseña").textContent = params.contraseña;
+            document.getElementById("pin").textContent = params.pin;
         }
 
         mostrarCredenciales();
