@@ -9,6 +9,19 @@
             background-color: #f5f5f5; /* Cambia el fondo de la página */
             color: #333333; /* Cambia el color del texto */
             font-family: Arial, sans-serif; /* Cambia la fuente */
+            display: flex; /* Utilizamos flexbox para centrar */
+            justify-content: center; /* Centrado horizontal */
+            align-items: center; /* Centrado vertical */
+            height: 100vh; /* Hace que ocupe toda la altura de la pantalla */
+            margin: 0; /* Elimina los márgenes predeterminados del body */
+        }
+
+        .contenido {
+            text-align: center; /* Centra el contenido dentro del contenedor */
+            padding: 20px;
+            background-color: white; /* Fondo blanco para el contenedor */
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
         }
 
         button {
@@ -37,15 +50,17 @@
     </style>
 </head>
 <body>
-    <div class="logo">
-        <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo de la marca">
+    <div class="contenido">
+        <div class="logo">
+            <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo de la marca">
+        </div>
+        <h1>Credenciales</h1>
+        <p class="credenciales">
+            Usuario: <span id="usuario"></span><br>
+            Contraseña: <span id="contraseña"></span>
+        </p>
+        <button onclick="copiarTexto()">Copiar Credenciales</button>
     </div>
-    <h1>Credenciales</h1>
-    <p class="credenciales">
-        Usuario: <span id="usuario"></span><br>
-        Contraseña: <span id="contraseña"></span>
-    </p>
-    <button onclick="copiarTexto()">Copiar Credenciales</button>
 
     <script>
         function obtenerParametrosURL() {
@@ -74,5 +89,3 @@
     </script>
 </body>
 </html>
-
-
