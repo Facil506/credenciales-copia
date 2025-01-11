@@ -29,9 +29,10 @@
             color: white;
             border-radius: 10px; /* Borde redondeado */
             border: 2px solid #F7931E; /* Borde del botón color naranja */
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 10px 20px;
+            font-size: 16px;
             cursor: pointer;
+            margin: 10px;
         }
 
         button:hover {
@@ -59,7 +60,8 @@
             Usuario: <span id="usuario"></span><br>
             Contraseña: <span id="contraseña"></span>
         </p>
-        <button onclick="copiarTexto()">Copiar Credenciales</button>
+        <button onclick="copiarUsuario()">Copiar Usuario</button>
+        <button onclick="copiarContraseña()">Copiar Contraseña</button>
     </div>
 
     <script>
@@ -71,11 +73,21 @@
             };
         }
 
-        function copiarTexto() {
+        function copiarUsuario() {
             const params = obtenerParametrosURL();
-            const texto = `Usuario: ${params.usuario}\nContraseña: ${params.contraseña}`;
+            const texto = `Usuario: ${params.usuario}`;
             navigator.clipboard.writeText(texto).then(() => {
-                alert("¡Credenciales copiadas al portapapeles!");
+                alert("¡Usuario copiado al portapapeles!");
+            }).catch(err => {
+                alert("Error al copiar: " + err);
+            });
+        }
+
+        function copiarContraseña() {
+            const params = obtenerParametrosURL();
+            const texto = `Contraseña: ${params.contraseña}`;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert("¡Contraseña copiada al portapapeles!");
             }).catch(err => {
                 alert("Error al copiar: " + err);
             });
@@ -86,6 +98,9 @@
             document.getElementById("usuario").textContent = params.usuario;
             document.getElementById("contraseña").textContent = params.contraseña;
         }
+
+        // Mostrar las credenciales al cargar la página
+        mostrarCredenciales();
     </script>
 </body>
 </html>
