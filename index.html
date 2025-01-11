@@ -6,29 +6,29 @@
     <title>Copiar Credenciales</title>
     <style>
         body {
-            background-color: #f5f5f5; /* Cambia el fondo de la página */
-            color: #333333; /* Cambia el color del texto */
-            font-family: Arial, sans-serif; /* Cambia la fuente */
-            display: flex; /* Utilizamos flexbox para centrar */
-            justify-content: center; /* Centrado horizontal */
-            align-items: center; /* Centrado vertical */
-            height: 100vh; /* Hace que ocupe toda la altura de la pantalla */
-            margin: 0; /* Elimina los márgenes predeterminados del body */
+            background-color: #f5f5f5;
+            color: #333333;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
 
         .contenido {
-            text-align: center; /* Centra el contenido dentro del contenedor */
+            text-align: center;
             padding: 20px;
-            background-color: white; /* Fondo blanco para el contenedor */
-            border-radius: 10px; /* Bordes redondeados */
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         button {
-            background-color: #F7931E; /* Botón color naranja */
+            background-color: #F7931E;
             color: white;
-            border-radius: 10px; /* Borde redondeado */
-            border: 2px solid #F7931E; /* Borde del botón color naranja */
+            border-radius: 10px;
+            border: 2px solid #F7931E;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
@@ -36,16 +36,16 @@
         }
 
         button:hover {
-            background-color: #e68a00; /* Color al pasar el mouse */
-            border-color: #cc7a00; /* Borde del botón al pasar el mouse */
+            background-color: #e68a00;
+            border-color: #cc7a00;
         }
 
         h1 {
-            color: #333333; /* Cambia el color del encabezado */
+            color: #333333;
         }
 
         .logo img {
-            width: 150px; /* Ajusta el tamaño del logo */
+            width: 150px;
             margin-bottom: 20px;
         }
     </style>
@@ -70,9 +70,9 @@
         function obtenerParametrosURL() {
             const params = new URLSearchParams(window.location.search);
             return {
-                usuario: params.get("usuario") || "No especificado",
-                contraseña: params.get("contraseña") || "No especificada",
-                pin: params.get("pin") || "No especificado"
+                usuario: decodeURIComponent(params.get("usuario")) || "No especificado",
+                contraseña: decodeURIComponent(params.get("contraseña")) || "No especificada",
+                pin: decodeURIComponent(params.get("pin")) || "No especificado"
             };
         }
 
@@ -94,27 +94,5 @@
             }).catch(err => {
                 alert("Error al copiar: " + err);
             });
-        }
+     
 
-        function copiarPin() {
-            const params = obtenerParametrosURL();
-            const texto = `PIN: ${params.pin}`;
-            navigator.clipboard.writeText(texto).then(() => {
-                alert("¡PIN copiado al portapapeles!");
-            }).catch(err => {
-                alert("Error al copiar: " + err);
-            });
-        }
-
-        function mostrarCredenciales() {
-            const params = obtenerParametrosURL();
-            document.getElementById("usuario").textContent = params.usuario;
-            document.getElementById("contraseña").textContent = params.contraseña;
-            document.getElementById("pin").textContent = params.pin;
-        }
-
-        // Mostrar las credenciales al cargar la página
-        mostrarCredenciales();
-    </script>
-</body>
-</html>
