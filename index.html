@@ -53,46 +53,4 @@
 <body>
     <div class="contenido">
         <div class="logo">
-            <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo de la marca">
-        </div>
-        <h1>Credenciales</h1>
-        <p class="credenciales">
-            Usuario: <span id="usuario"></span><br>
-            Contraseña: <span id="contraseña"></span><br>
-            PIN: <span id="pin"></span>
-        </p>
-        <button onclick="copiarUsuario()">Copiar Usuario</button>
-        <button onclick="copiarContraseña()">Copiar Contraseña</button>
-        <button onclick="copiarPin()">Copiar PIN</button>
-    </div>
-
-    <script>
-        function obtenerParametrosURL() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                usuario: decodeURIComponent(params.get("usuario")) || "No especificado",
-                contraseña: decodeURIComponent(params.get("contraseña")) || "No especificada",
-                pin: decodeURIComponent(params.get("pin")) || "No especificado"
-            };
-        }
-
-        function copiarUsuario() {
-            const params = obtenerParametrosURL();
-            const texto = `Usuario: ${params.usuario}`;
-            navigator.clipboard.writeText(texto).then(() => {
-                alert("¡Usuario copiado al portapapeles!");
-            }).catch(err => {
-                alert("Error al copiar: " + err);
-            });
-        }
-
-        function copiarContraseña() {
-            const params = obtenerParametrosURL();
-            const texto = `Contraseña: ${params.contraseña}`;
-            navigator.clipboard.writeText(texto).then(() => {
-                alert("¡Contraseña copiada al portapapeles!");
-            }).catch(err => {
-                alert("Error al copiar: " + err);
-            });
-     
-
+            <img src="https://g
