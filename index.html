@@ -57,9 +57,9 @@
         </div>
         <h1>Credenciales</h1>
         <p class="credenciales">
-            <span id="usuario"></span><br>
-            <span id="contraseña"></span><br>
-            <span id="pin"></span><br>
+            <span id="usuario">Usuario: <span id="usuarioTexto"></span></span><br>
+            <span id="contraseña">Contraseña: <span id="contraseñaTexto"></span></span><br>
+            <span id="pin">PIN: <span id="pinTexto"></span></span><br>
         </p>
         <button onclick="copiarUsuario()">Copiar Usuario</button>
         <button onclick="copiarContraseña()">Copiar Contraseña</button>
@@ -78,7 +78,7 @@
 
         function copiarUsuario() {
             const params = obtenerParametrosURL();
-            const texto = params.usuario;
+            const texto = params.usuario;  // Aquí copiamos solo el valor, no el texto "Usuario: "
             navigator.clipboard.writeText(texto).then(() => {
                 alert("¡Usuario copiado al portapapeles!");
             }).catch(err => {
@@ -88,7 +88,7 @@
 
         function copiarContraseña() {
             const params = obtenerParametrosURL();
-            const texto = params.contraseña;
+            const texto = params.contraseña;  // Aquí copiamos solo el valor, no el texto "Contraseña: "
             navigator.clipboard.writeText(texto).then(() => {
                 alert("¡Contraseña copiada al portapapeles!");
             }).catch(err => {
@@ -98,7 +98,7 @@
 
         function copiarPin() {
             const params = obtenerParametrosURL();
-            const texto = params.pin;
+            const texto = params.pin;  // Aquí copiamos solo el valor, no el texto "PIN: "
             navigator.clipboard.writeText(texto).then(() => {
                 alert("¡PIN copiado al portapapeles!");
             }).catch(err => {
@@ -108,13 +108,14 @@
 
         function mostrarCredenciales() {
             const params = obtenerParametrosURL();
-            document.getElementById("usuario").textContent = params.usuario;
-            document.getElementById("contraseña").textContent = params.contraseña;
-            document.getElementById("pin").textContent = params.pin;
+            document.getElementById("usuarioTexto").textContent = params.usuario;
+            document.getElementById("contraseñaTexto").textContent = params.contraseña;
+            document.getElementById("pinTexto").textContent = params.pin;
         }
 
         mostrarCredenciales();
     </script>
 </body>
 </html>
+
 
