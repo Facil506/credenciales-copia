@@ -64,6 +64,7 @@
         <button onclick="copiarUsuario()">Copiar Usuario</button>
         <button onclick="copiarContraseña()">Copiar Contraseña</button>
         <button onclick="copiarPin()">Copiar PIN</button>
+        <div id="servicioDiv"></div>
     </div>
 
     <script>
@@ -72,13 +73,14 @@
             return {
                 usuario: decodeURIComponent(params.get("usuario")) || "No especificado",
                 contraseña: decodeURIComponent(params.get("contraseña")) || "No especificada",
-                pin: decodeURIComponent(params.get("pin")) || "No es necesario"
+                pin: decodeURIComponent(params.get("pin")) || "No es necesario",
+                servicio: decodeURIComponent(params.get("servicio")) || null
             };
         }
 
         function copiarUsuario() {
             const params = obtenerParametrosURL();
-            const texto = params.usuario;  // Aquí copiamos solo el valor, no el texto "Usuario: "
+            const texto = params.usuario;
             navigator.clipboard.writeText(texto).then(() => {
                 alert("¡Usuario copiado al portapapeles!");
             }).catch(err => {
@@ -88,7 +90,7 @@
 
         function copiarContraseña() {
             const params = obtenerParametrosURL();
-            const texto = params.contraseña;  // Aquí copiamos solo el valor, no el texto "Contraseña: "
+            const texto = params.contraseña;
             navigator.clipboard.writeText(texto).then(() => {
                 alert("¡Contraseña copiada al portapapeles!");
             }).catch(err => {
@@ -98,7 +100,7 @@
 
         function copiarPin() {
             const params = obtenerParametrosURL();
-            const texto = params.pin;  // Aquí copiamos solo el valor, no el texto "PIN: "
+            const texto = params.pin;
             navigator.clipboard.writeText(texto).then(() => {
                 alert("¡PIN copiado al portapapeles!");
             }).catch(err => {
@@ -111,11 +113,43 @@
             document.getElementById("usuarioTexto").textContent = params.usuario;
             document.getElementById("contraseñaTexto").textContent = params.contraseña;
             document.getElementById("pinTexto").textContent = params.pin;
+            
+            // Mostrar el botón de servicio si existe el parámetro 'servicio'
+            if (params.servicio) {
+                const servicioDiv = document.getElementById("servicioDiv");
+                const servicio = params.servicio.toLowerCase();  // Convertir a minúsculas para mayor flexibilidad
+                
+                let servicioNombre = '';
+                let servicioUrl = '';
+                
+                // Dependiendo del servicio, establecer nombre y URL de redirección
+                switch (servicio) {
+                    case 'netflix':
+                        servicioNombre = 'Abrir Netflix';
+                        servicioUrl = 'https://www.netflix.com';
+                        break;
+                    case 'disneyplus':
+                        servicioNombre = 'Abrir Disney+';
+                        servicioUrl = 'https://www.disneyplus.com';
+                        break;
+                    case 'hbo':
+                        servicioNombre = 'Abrir HBO';
+                        servicioUrl = 'https://www.hbo.com';
+                        break;
+                    // Agrega más servicios según lo necesites
+                    default:
+                        servicioNombre = 'Abrir ' + params.servicio;
+                        servicioUrl = '#';  // URL predeterminada en caso de servicio desconocido
+                }
+
+                // Crear el botón para abrir el servicio
+                servicioDiv.innerHTML = `
+                    <button onclick="window.location.href='${servicioUrl}'">${servicioNombre}</button>
+                `;
+            }
         }
 
         mostrarCredenciales();
     </script>
 </body>
 </html>
-
-
