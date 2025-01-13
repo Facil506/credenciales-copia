@@ -3,161 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Copiar Credenciales</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <title>Credenciales</title>
     <style>
         body {
-            background-color: #f5f5f5;
-            color: #333333;
-            font-family: 'Roboto', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .contenido {
+            font-family: Arial, sans-serif;
             text-align: center;
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
         }
-
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-top: 20px;
+        }
+        .credenciales {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .botones {
+            margin-top: 20px;
+        }
         button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            border: none;
             background-color: #F7931E;
             color: white;
-            border-radius: 10px;
-            border: 2px solid #F7931E;
-            padding: 15px;
-            font-size: 18px;
             cursor: pointer;
-            margin: 10px 0;
-            width: 100%;
-            display: block;
-            box-sizing: border-box;
-            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-            font-family: 'Poppins', sans-serif;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
-
         button:hover {
-            background-color: #e68a00;
-            border-color: #cc7a00;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            transform: translateY(-5px);
+            background-color: #F67E16;
         }
-
-        button:active {
-            transform: translateY(2px);
-        }
-
-        h1 {
-            color: #333333;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .logo img {
-            width: 150px;
-            margin-bottom: 20px;
-        }
-
-        .logo-circle {
-            width: 80px;
-            height: 80px;
+        .logo-plataforma {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            margin: 20px 0;
-            overflow: hidden;
-            display: inline-block;
-        }
-
-        .logo-circle img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .credenciales span {
-            font-family: 'Roboto', sans-serif;
-            font-size: 16px;
+            margin: 10px auto;
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div class="contenido">
-        <div class="logo">
-            <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo Original">
+    <div>
+        <h1>Bienvenido a tu página de credenciales</h1>
+        <div class="credenciales">
+            <p><strong>Usuario:</strong> <span id="usuarioTexto"></span></p>
+            <button onclick="copiarTexto('usuarioTexto')">Copiar Usuario</button>
+            <p><strong>Contraseña:</strong> <span id="contraseñaTexto"></span></p>
+            <button onclick="copiarTexto('contraseñaTexto')">Copiar Contraseña</button>
+            <p><strong>PIN:</strong> <span id="pinTexto"></span></p>
+            <button onclick="copiarTexto('pinTexto')">Copiar PIN</button>
         </div>
-
-        <div class="logo-circle">
-            <img id="logoPlataforma" src="https://images.ctfassets.net/y2ske730sjqp/5QQ9SVIdc1tmkqrtFnG9U1/de758bba0f65dcc1c6bc1f31f161003d/BrandAssets_Logos_02-NSymbol.jpg?w=940" alt="Logo de la plataforma">
-        </div>
-
-        <h1>Credenciales</h1>
-        <p class="credenciales">
-            <span id="usuario">Usuario: <span id="usuarioTexto"></span></span><br>
-            <span id="contraseña">Contraseña: <span id="contraseñaTexto"></span></span><br>
-            <span id="pin">PIN: <span id="pinTexto"></span></span><br>
-        </p>
-        <button onclick="copiarUsuario()">Copiar Usuario</button>
-        <button onclick="copiarContraseña()">Copiar Contraseña</button>
-        <button onclick="copiarPin()">Copiar PIN</button>
-        <div id="servicioDiv"></div>
+        <img id="logoPlataforma" class="logo-plataforma" alt="Logo del Servicio">
+        <div id="servicioDiv" class="botones"></div>
     </div>
 
     <script>
         function obtenerParametrosURL() {
-            const params = new URLSearchParams(window.location.search);
+            const urlParams = new URLSearchParams(window.location.search);
             return {
-                usuario: decodeURIComponent(params.get("usuario")) || "No especificado",
-                contraseña: decodeURIComponent(params.get("contraseña")) || "No especificada",
-                pin: decodeURIComponent(params.get("pin")) || "No es necesario",
-                servicio: decodeURIComponent(params.get("servicio")) || null
+                usuario: urlParams.get('usuario'),
+                contraseña: urlParams.get('contraseña'),
+                pin: urlParams.get('pin'),
+                servicio: urlParams.get('servicio')
             };
         }
 
-        function copiarUsuario() {
-            const params = obtenerParametrosURL();
-            const texto = params.usuario;
+        function copiarTexto(elementId) {
+            const texto = document.getElementById(elementId).textContent;
             navigator.clipboard.writeText(texto).then(() => {
-                alert("¡Usuario copiado al portapapeles!");
-            }).catch(err => {
-                alert("Error al copiar: " + err);
-            });
-        }
-
-        function copiarContraseña() {
-            const params = obtenerParametrosURL();
-            const texto = params.contraseña;
-            navigator.clipboard.writeText(texto).then(() => {
-                alert("¡Contraseña copiada al portapapeles!");
-            }).catch(err => {
-                alert("Error al copiar: " + err);
-            });
-        }
-
-        function copiarPin() {
-            const params = obtenerParametrosURL();
-            const texto = params.pin;
-            navigator.clipboard.writeText(texto).then(() => {
-                alert("¡PIN copiado al portapapeles!");
-            }).catch(err => {
-                alert("Error al copiar: " + err);
+                alert('Texto copiado al portapapeles');
             });
         }
 
         function mostrarCredenciales() {
             const params = obtenerParametrosURL();
-            document.getElementById("usuarioTexto").textContent = params.usuario;
-            document.getElementById("contraseñaTexto").textContent = params.contraseña;
-            document.getElementById("pinTexto").textContent = params.pin;
-            
+            document.getElementById("usuarioTexto").textContent = params.usuario || 'N/A';
+            document.getElementById("contraseñaTexto").textContent = params.contraseña || 'N/A';
+            document.getElementById("pinTexto").textContent = params.pin || 'N/A';
+
             if (params.servicio) {
                 const servicioDiv = document.getElementById("servicioDiv");
                 const servicio = params.servicio.toLowerCase();
-                
+
                 let servicioNombre = '';
                 let servicioUrl = '';
                 let logoUrl = '';
@@ -166,57 +98,54 @@
                     case 'disneyplus':
                         servicioNombre = 'Abrir Disney+';
                         servicioUrl = 'https://www.disneyplus.com';
-                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Disney%2B_logo.svg';
+                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/refs/heads/main/5EGT4P4UKRGAZPDR52FKJJW4YU.avif';
                         break;
                     case 'netflix':
                         servicioNombre = 'Abrir Netflix';
-                        servicioUrl = 'https://www.netflix.com';
-                        logoUrl = 'https://images.ctfassets.net/y2ske730sjqp/5QQ9SVIdc1tmkqrtFnG9U1/de758bba0f65dcc1c6bc1f31f161003d/BrandAssets_Logos_02-NSymbol.jpg?w=940';
+                        servicioUrl = 'https://www.netflix.com/login';
+                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/BrandAssets_Logos_02-NSymbol.jpg?raw=true';
                         break;
                     case 'max':
                         servicioNombre = 'Abrir Max';
-                        servicioUrl = 'https://www.hbo.com';
-                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/6/66/HBO_Max_Logo.svg';
+                        servicioUrl = 'https://www.hbomax.com';
+                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/refs/heads/main/DixonBaxi_MAX_002-1.avif';
                         break;
                     case 'vix':
                         servicioNombre = 'Abrir Vix';
                         servicioUrl = 'https://www.vix.com';
-                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Vix_logo_2020.svg';
+                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/9e9ae9ca207ea166c3d5c4f1ad9ffe1f.jpg?raw=true';
                         break;
                     case 'spotify':
                         servicioNombre = 'Abrir Spotify';
                         servicioUrl = 'https://www.spotify.com';
-                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/6/69/Spotify_Logo_2015.svg';
+                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/827ce3cb5c4afe0724fe6aa57497ed358a6f61e9/icon3.svg';
                         break;
                     case 'youtubepremium':
                         servicioNombre = 'Abrir YouTube Premium';
                         servicioUrl = 'https://www.youtube.com/premium';
-                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_Premium_Logo.svg';
+                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/youtube_premium-logo_brandlogos.net_lmczv.png?raw=true';
                         break;
                     case 'paramount':
-                        servicioNombre = 'Abrir Paramount+';
+                        servicioNombre = 'Abrir Paramount';
                         servicioUrl = 'https://www.paramountplus.com';
-                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Paramount%2B_logo.svg';
+                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/refs/heads/main/ParamountPlus_Logo_Blue.webp';
                         break;
                     case 'primevideo':
                         servicioNombre = 'Abrir Prime Video';
-                        servicioUrl = 'https://www.amazon.com/Prime-Video';
-                        logoUrl = 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLssOfBM3hLUDeyJtzHlSdUk3-eal7fkrnFpNnwo0treB5MM9kjPxAX3tOU9lJNS321cQ2Npn0F702FgZJt-6mCQyM2ZI3wPt97lHVV7aaeXR1wUTrod2pUn3y0yiPt_nQiyw6P8HOKE1smFZAw3WDd3K6gILK2DCgzdUFNkyK9g3yDGl5VTpzs4101A/s1920/primevideo.jpg';
+                        servicioUrl = 'https://www.primevideo.com';
+                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/refs/heads/main/amazon-prime-video-identidad.webp';
                         break;
-                    default:
-                        servicioNombre = 'Abrir ' + params.servicio;
-                        servicioUrl = '#';
-                        logoUrl = 'https://via.placeholder.com/120';
                 }
 
-                // Cambiar imagen de la plataforma
-                document.getElementById("logoPlataforma").src = logoUrl;
-
-                servicioDiv.innerHTML = `
-                    <button onclick="window.open('${servicioUrl}', '_blank')">
-                        ${servicioNombre}
-                    </button>
-                `;
+                if (servicioUrl) {
+                    const button = document.createElement('button');
+                    button.textContent = servicioNombre;
+                    button.onclick = function() {
+                        window.open(servicioUrl, '_blank');
+                    };
+                    document.getElementById("logoPlataforma").src = logoUrl;
+                    servicioDiv.appendChild(button);
+                }
             }
         }
 
@@ -224,7 +153,6 @@
     </script>
 </body>
 </html>
-
 
 
 
