@@ -77,7 +77,6 @@
             margin-top: 10px;
             padding: 12px;
             font-size: 16px;
-            background-color: #ba03db;
             width: 100%;
         }
 
@@ -143,6 +142,7 @@
             // Configurar imagen y botón según la plataforma
             imagenPlataforma.src = imagenes[plataforma] || "https://via.placeholder.com/100";
             botonServicio.textContent = `Abrir ${params.plataforma}`;
+            botonServicio.style.backgroundColor = "#F7931E"; // Color del botón consistente con los demás
             botonServicio.setAttribute("data-url", getPlataformaURL(plataforma));
 
             // Mostrar credenciales
@@ -202,4 +202,5 @@
     </script>
 </body>
 </html>
+
 
