@@ -6,73 +6,50 @@
     <title>Credenciales</title>
     <style>
         body {
-            background-color: #f5f5f5; /* Fondo de la página */
-            color: #333333; /* Color del texto */
-            font-family: Arial, sans-serif; /* Fuente */
-            display: flex; /* Usamos flexbox para centrar */
-            justify-content: center; /* Centrado horizontal */
-            align-items: center; /* Centrado vertical */
-            height: 100vh; /* Ocupa toda la altura */
-            margin: 0; /* Eliminar márgenes del body */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
         }
-
-        .contenido {
-            text-align: center; /* Centrar el contenido */
-            padding: 20px;
-            background-color: white; /* Fondo blanco para el contenedor */
-            border-radius: 10px; /* Bordes redondeados */
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-            width: 100%; /* Ajuste automático */
-            max-width: 500px; /* Ancho máximo */
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-top: 20px;
         }
-
-        h1 {
-            color: #333333; /* Color del encabezado */
-        }
-
         .credenciales {
+            margin-top: 20px;
             font-size: 18px;
-            margin-bottom: 20px;
         }
-
-        button {
-            background-color: #F7931E; /* Color naranja */
-            color: white;
-            border-radius: 10px; /* Bordes redondeados */
-            border: 2px solid #F7931E; /* Borde naranja */
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 10px;
-        }
-
-        button:hover {
-            background-color: #e68a00; /* Color al pasar el mouse */
-            border-color: #cc7a00; /* Borde naranja más oscuro */
-        }
-
-        .logo-plataforma {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
-
         .botones {
             margin-top: 20px;
         }
-
-        .logo img {
-            width: 150px; /* Ajusta el tamaño del logo */
-            margin-bottom: 20px;
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            border: none;
+            background-color: #F7931E;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #F67E16;
+        }
+        .logo-plataforma {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 10px auto;
+            display: block;
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
-    <div class="contenido">
-        <div class="logo">
-            <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo de la marca">
-        </div>
+    <div>
         <h1>Bienvenido a tu página de credenciales</h1>
         <div class="credenciales">
             <p><strong>Usuario:</strong> <span id="usuarioTexto"></span></p>
@@ -90,9 +67,9 @@
         function obtenerParametrosURL() {
             const urlParams = new URLSearchParams(window.location.search);
             return {
-                usuario: urlParams.get('usuario') || 'N/A',
-                contraseña: urlParams.get('contraseña') || 'N/A',
-                pin: urlParams.get('pin') || 'N/A',
+                usuario: urlParams.get('usuario'),
+                contraseña: urlParams.get('contraseña'),
+                pin: urlParams.get('pin'),
                 servicio: urlParams.get('servicio')
             };
         }
@@ -106,9 +83,9 @@
 
         function mostrarCredenciales() {
             const params = obtenerParametrosURL();
-            document.getElementById("usuarioTexto").textContent = params.usuario;
-            document.getElementById("contraseñaTexto").textContent = params.contraseña;
-            document.getElementById("pinTexto").textContent = params.pin;
+            document.getElementById("usuarioTexto").textContent = params.usuario || 'N/A';
+            document.getElementById("contraseñaTexto").textContent = params.contraseña || 'N/A';
+            document.getElementById("pinTexto").textContent = params.pin || 'N/A';
 
             if (params.servicio) {
                 const servicioDiv = document.getElementById("servicioDiv");
@@ -122,42 +99,42 @@
                     case 'disneyplus':
                         servicioNombre = 'Abrir Disney+';
                         servicioUrl = 'https://www.disneyplus.com';
-                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/refs/heads/main/5EGT4P4UKRGAZPDR52FKJJW4YU.avif';
+                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/disneyplus.png?raw=true';
                         break;
                     case 'netflix':
                         servicioNombre = 'Abrir Netflix';
                         servicioUrl = 'https://www.netflix.com/login';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/BrandAssets_Logos_02-NSymbol.jpg?raw=true';
+                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/netflix.png?raw=true';
                         break;
                     case 'max':
                         servicioNombre = 'Abrir Max';
                         servicioUrl = 'https://www.hbomax.com';
-                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/refs/heads/main/DixonBaxi_MAX_002-1.avif';
+                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/max.png?raw=true';
                         break;
                     case 'vix':
                         servicioNombre = 'Abrir Vix';
                         servicioUrl = 'https://www.vix.com';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/9e9ae9ca207ea166c3d5c4f1ad9ffe1f.jpg?raw=true';
+                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/vix.png?raw=true';
                         break;
                     case 'spotify':
                         servicioNombre = 'Abrir Spotify';
                         servicioUrl = 'https://www.spotify.com';
-                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/827ce3cb5c4afe0724fe6aa57497ed358a6f61e9/icon3.svg';
+                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/spotify.png?raw=true';
                         break;
                     case 'youtubepremium':
                         servicioNombre = 'Abrir YouTube Premium';
                         servicioUrl = 'https://www.youtube.com/premium';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/youtube_premium-logo_brandlogos.net_lmczv.png?raw=true';
+                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/youtube.png?raw=true';
                         break;
                     case 'paramount':
                         servicioNombre = 'Abrir Paramount';
                         servicioUrl = 'https://www.paramountplus.com';
-                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/refs/heads/main/ParamountPlus_Logo_Blue.webp';
+                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/paramount.png?raw=true';
                         break;
                     case 'primevideo':
                         servicioNombre = 'Abrir Prime Video';
                         servicioUrl = 'https://www.primevideo.com';
-                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/refs/heads/main/amazon-prime-video-identidad.webp';
+                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/primevideo.png?raw=true';
                         break;
                 }
 
