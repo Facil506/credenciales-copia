@@ -1,79 +1,202 @@
-<script>
-    function obtenerParametrosURL() {
-        const params = new URLSearchParams(window.location.search);
-        return {
-            usuario: params.get("usuario") || "No especificado",
-            contraseña: params.get("contraseña") || "No especificada",
-            pin: params.get("pin") || "No especificado",
-            plataforma: params.get("plataforma") || "Servicio"
-        };
-    }
-
-    function mostrarCredenciales() {
-        const params = obtenerParametrosURL();
-
-        // Credenciales
-        document.getElementById("usuario").textContent = params.usuario;
-        document.getElementById("contraseña").textContent = params.contraseña;
-        document.getElementById("pin").textContent = params.pin;
-
-        // Cambiar botón de servicio
-        const botonServicio = document.querySelector(".boton-servicio");
-        botonServicio.textContent = `Abrir ${params.plataforma}`;
-
-        // Cambiar imagen de la plataforma
-        const plataformaImagenes = {
-            "Netflix": "https://github.com/Facil506/credenciales-copia/blob/main/netflix.png?raw=true",
-            "Disney+": "https://github.com/Facil506/credenciales-copia/blob/main/disneyplus.png?raw=true",
-            "VIX": "https://github.com/Facil506/credenciales-copia/blob/main/vix.png?raw=true",
-            "MAX": "https://github.com/Facil506/credenciales-copia/blob/main/max.png?raw=true",
-            "YouTube Premium": "https://github.com/Facil506/credenciales-copia/blob/main/youtube.png?raw=true",
-            "Paramount": "https://github.com/Facil506/credenciales-copia/blob/main/paramount.png?raw=true",
-            "Prime Video": "https://github.com/Facil506/credenciales-copia/blob/main/primevideo.png?raw=true",
-            "Spotify": "https://github.com/Facil506/credenciales-copia/blob/main/spotify.png?raw=true"
-        };
-
-        const imagenServicio = document.querySelector(".imagen-servicio img");
-        if (plataformaImagenes[params.plataforma]) {
-            imagenServicio.src = plataformaImagenes[params.plataforma];
-            imagenServicio.alt = params.plataforma;
-        } else {
-            imagenServicio.src = "https://via.placeholder.com/100"; // Imagen por defecto
-            imagenServicio.alt = "Servicio desconocido";
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credenciales de Servicio</title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            color: #333333;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-    }
 
-    function copiarTexto(texto) {
-        navigator.clipboard.writeText(texto).then(() => {
-            alert("¡Texto copiado al portapapeles!");
-        }).catch(err => {
-            alert("Error al copiar: " + err);
-        });
-    }
+        .contenido {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
 
-    function copiarUsuario() {
-        const params = obtenerParametrosURL();
-        copiarTexto(`Usuario: ${params.usuario}`);
-    }
+        h1 {
+            color: #F7931E;
+            margin-bottom: 20px;
+        }
 
-    function copiarContraseña() {
-        const params = obtenerParametrosURL();
-        copiarTexto(`Contraseña: ${params.contraseña}`);
-    }
+        .imagen-servicio img {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
 
-    function copiarPin() {
-        const params = obtenerParametrosURL();
-        copiarTexto(`PIN: ${params.pin}`);
-    }
+        .credenciales p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
 
-    function abrirServicio() {
-        const params = obtenerParametrosURL();
-        alert(`Abriendo ${params.plataforma}`);
-        // Aquí puedes configurar la URL real del servicio si está disponible
-    }
+        .botones {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
 
-    // Mostrar las credenciales al cargar la página
-    mostrarCredenciales();
-</script>
+        .botones button {
+            flex: 1;
+            background-color: #F7931E;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .botones button:hover {
+            background-color: #e68a00;
+        }
+
+        .boton-pin {
+            background-color: #F7931E;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .boton-pin:hover {
+            background-color: #e68a00;
+        }
+
+        .boton-servicio {
+            margin-top: 20px;
+            display: inline-block;
+            background-color: #ba03db;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .boton-servicio:hover {
+            background-color: #a002c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenido">
+        <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo">
+        <h1>¡Hazlo rápido, Hazlo fácil!</h1>
+        <div class="imagen-servicio">
+            <img src="" alt="Servicio">
+        </div>
+        <div class="credenciales">
+            <p>Usuario: <span id="usuario"></span></p>
+            <p>Contraseña: <span id="contraseña"></span></p>
+        </div>
+        <div class="botones">
+            <button onclick="copiarUsuario()">Copiar Usuario</button>
+            <button onclick="copiarContraseña()">Copiar Contraseña</button>
+        </div>
+        <div>
+            <p>PIN: <span id="pin"></span></p>
+            <button class="boton-pin" onclick="copiarPin()">Copiar PIN</button>
+        </div>
+        <a href="#" class="boton-servicio" onclick="abrirServicio()">Abrir Servicio</a>
+    </div>
+
+    <script>
+        function obtenerParametrosURL() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                usuario: params.get("usuario") || "No especificado",
+                contraseña: params.get("contraseña") || "No especificada",
+                pin: params.get("pin") || "No especificado",
+                plataforma: params.get("plataforma") || "Servicio"
+            };
+        }
+
+        function mostrarCredenciales() {
+            const params = obtenerParametrosURL();
+
+            // Mostrar credenciales
+            document.getElementById("usuario").textContent = params.usuario;
+            document.getElementById("contraseña").textContent = params.contraseña;
+            document.getElementById("pin").textContent = params.pin;
+
+            // Cambiar botón de servicio
+            const botonServicio = document.querySelector(".boton-servicio");
+            botonServicio.textContent = `Abrir ${params.plataforma}`;
+
+            // Cambiar imagen de la plataforma
+            const plataformaImagenes = {
+                "Netflix": "https://github.com/Facil506/credenciales-copia/blob/main/netflix.png?raw=true",
+                "Disney+": "https://github.com/Facil506/credenciales-copia/blob/main/disneyplus.png?raw=true",
+                "VIX": "https://github.com/Facil506/credenciales-copia/blob/main/vix.png?raw=true",
+                "MAX": "https://github.com/Facil506/credenciales-copia/blob/main/max.png?raw=true",
+                "YouTube Premium": "https://github.com/Facil506/credenciales-copia/blob/main/youtube.png?raw=true",
+                "Paramount": "https://github.com/Facil506/credenciales-copia/blob/main/paramount.png?raw=true",
+                "Prime Video": "https://github.com/Facil506/credenciales-copia/blob/main/primevideo.png?raw=true",
+                "Spotify": "https://github.com/Facil506/credenciales-copia/blob/main/spotify.png?raw=true"
+            };
+
+            const imagenServicio = document.querySelector(".imagen-servicio img");
+            if (plataformaImagenes[params.plataforma]) {
+                imagenServicio.src = plataformaImagenes[params.plataforma];
+                imagenServicio.alt = params.plataforma;
+            } else {
+                imagenServicio.src = "https://via.placeholder.com/150";
+                imagenServicio.alt = "Servicio desconocido";
+            }
+        }
+
+        function copiarTexto(texto) {
+            navigator.clipboard.writeText(texto).then(() => {
+                alert("¡Texto copiado al portapapeles!");
+            }).catch(err => {
+                alert("Error al copiar: " + err);
+            });
+        }
+
+        function copiarUsuario() {
+            const params = obtenerParametrosURL();
+            copiarTexto(`Usuario: ${params.usuario}`);
+        }
+
+        function copiarContraseña() {
+            const params = obtenerParametrosURL();
+            copiarTexto(`Contraseña: ${params.contraseña}`);
+        }
+
+        function copiarPin() {
+            const params = obtenerParametrosURL();
+            copiarTexto(`PIN: ${params.pin}`);
+        }
+
+        function abrirServicio() {
+            const params = obtenerParametrosURL();
+            alert(`Abriendo ${params.plataforma}`);
+            // Aquí puedes configurar una URL real del servicio si está disponible
+        }
+
+        // Inicializar
+        mostrarCredenciales();
+    </script>
+</body>
+</html>
 
 
