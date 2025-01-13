@@ -12,11 +12,6 @@
             margin: 0;
             padding: 0;
         }
-        .logo {
-            width: 100px;
-            height: 100px;
-            margin-top: 20px;
-        }
         .credenciales {
             margin-top: 20px;
             font-size: 18px;
@@ -39,10 +34,11 @@
             background-color: #F67E16;
         }
         .logo-plataforma {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            margin: 10px auto;
+            display: block;
+            margin: 20px auto;
         }
     </style>
 </head>
@@ -50,11 +46,17 @@
     <div>
         <h1>Bienvenido a tu página de credenciales</h1>
         <div class="credenciales">
-            <p><strong>Usuario:</strong> <span id="usuarioTexto"></span></p>
-            <p><strong>Contraseña:</strong> <span id="contraseñaTexto"></span></p>
-            <p><strong>PIN:</strong> <span id="pinTexto"></span></p>
+            <p><strong>Usuario:</strong> <span id="usuarioTexto"></span>
+                <button onclick="copiarTexto('usuarioTexto')">Copiar</button>
+            </p>
+            <p><strong>Contraseña:</strong> <span id="contraseñaTexto"></span>
+                <button onclick="copiarTexto('contraseñaTexto')">Copiar</button>
+            </p>
+            <p><strong>PIN:</strong> <span id="pinTexto"></span>
+                <button onclick="copiarTexto('pinTexto')">Copiar</button>
+            </p>
         </div>
-        <div id="logoPlataforma"></div>
+        <img id="logoPlataforma" class="logo-plataforma" src="" alt="Logo de la plataforma">
         <div id="servicioDiv" class="botones"></div>
     </div>
 
@@ -73,7 +75,7 @@
             const params = obtenerParametrosURL();
             document.getElementById("usuarioTexto").textContent = params.usuario || "No disponible";
             document.getElementById("contraseñaTexto").textContent = params.contraseña || "No disponible";
-            document.getElementById("pinTexto").textContent = params.pin || "No es necesario";
+            document.getElementById("pinTexto").textContent = params.pin || "No disponible";
 
             const servicios = {
                 disneyplus: {
@@ -91,31 +93,59 @@
                     url: 'https://www.hbo.com',
                     logo: 'https://upload.wikimedia.org/wikipedia/commons/6/66/HBO_Max_Logo.svg'
                 },
-                // Agrega los demás servicios aquí
+                vix: {
+                    nombre: 'Abrir Vix',
+                    url: 'https://www.vix.com',
+                    logo: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/01/ViX_logo-1-H-2024.jpg'
+                },
+                spotify: {
+                    nombre: 'Abrir Spotify',
+                    url: 'https://www.spotify.com',
+                    logo: 'https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2021/03/Spotify-Logo-Green-Black.jpg?fit=2000%2C1333&quality=70&strip=all&ssl=1'
+                },
+                youtubepremium: {
+                    nombre: 'Abrir YouTube Premium',
+                    url: 'https://www.youtube.com/premium',
+                    logo: 'https://imagenes.eltiempo.com/files/image_1200_600/uploads/2023/05/11/645d0a0305568.png'
+                },
+                paramount: {
+                    nombre: 'Abrir Paramount',
+                    url: 'https://www.paramountplus.com',
+                    logo: 'https://i0.wp.com/elpoderdelasideas.com/wp-content/uploads/paramount-2021-logo-elpoderdelasideas.png?resize=696%2C339'
+                },
+                primevideo: {
+                    nombre: 'Abrir Prime Video',
+                    url: 'https://www.amazon.com/Prime-Video',
+                    logo: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLssOfBM3hLUDeyJtzHlSdUk3-eal7fkrnFpNnwo0treB5MM9kjPxAX3tOU9lJNS321cQ2Npn0F702FgZJt-6mCQyM2ZI3wPt97lHVV7aaeXR1wUTrod2pUn3y0yiPt_nQiyw6P8HOKE1smFZAw3WDd3K6gILK2DCgzdUFNkyK9g3yDGl5VTpzs4101A/s1920/primevideo.jpg'
+                }
             };
 
-            const servicio = params.servicio ? servicios[params.servicio.toLowerCase()] : null;
+            if (params.servicio && servicios[params.servicio.toLowerCase()]) {
+                const servicio = servicios[params.servicio.toLowerCase()];
+                document.getElementById("logoPlataforma").src = servicio.logo;
 
-            if (servicio) {
-                const logoDiv = document.getElementById("logoPlataforma");
-                const img = document.createElement("img");
-                img.src = servicio.logo;
-                img.alt = params.servicio;
-                img.className = "logo-plataforma";
-                logoDiv.appendChild(img);
-
-                const servicioDiv = document.getElementById("servicioDiv");
-                const button = document.createElement("button");
+                const button = document.createElement('button');
                 button.textContent = servicio.nombre;
-                button.onclick = () => window.open(servicio.url, '_blank');
-                servicioDiv.appendChild(button);
+                button.onclick = function() {
+                    window.open(servicio.url, '_blank');
+                };
+
+                document.getElementById("servicioDiv").appendChild(button);
             }
+        }
+
+        function copiarTexto(id) {
+            const texto = document.getElementById(id).textContent;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert(`Texto copiado: ${texto}`);
+            });
         }
 
         mostrarCredenciales();
     </script>
 </body>
 </html>
+
 
 
 
