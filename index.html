@@ -207,7 +207,27 @@
                         servicioNombre = 'Abrir ' + params.servicio;
                         servicioUrl = '#';
                         logoUrl = 'https://via.placeholder.com/120';
-               
+                }
+
+                // Establecer el logo de la plataforma
+                document.getElementById('logoPlataforma').src = logoUrl;
+
+                // Crear el botón para abrir el servicio
+                const abrirServicioButton = document.createElement('button');
+                abrirServicioButton.textContent = servicioNombre;
+                abrirServicioButton.onclick = function() {
+                    window.open(servicioUrl, '_blank');
+                };
+
+                servicioDiv.appendChild(abrirServicioButton);
+            }
+        }
+
+        // Llamar a la función para mostrar las credenciales y el botón de la plataforma
+        mostrarCredenciales();
+    </script>
+</body>
+</html>
 
 
 
