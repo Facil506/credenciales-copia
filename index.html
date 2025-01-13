@@ -121,35 +121,27 @@
                 
                 let servicioNombre = '';
                 let servicioUrl = '';
-                
-                // Dependiendo del servicio, establecer nombre y URL de redirección
+                let deepLinkUrl = '';
+
+                // Dependiendo del servicio, establecer nombre, URL de redirección y deep link
                 switch (servicio) {
                     case 'netflix':
                         servicioNombre = 'Abrir Netflix';
                         servicioUrl = 'https://www.netflix.com';
+                        deepLinkUrl = 'com.netflix.mediaclient://'; // Deep link para Netflix
                         break;
                     case 'disneyplus':
                         servicioNombre = 'Abrir Disney+';
                         servicioUrl = 'https://www.disneyplus.com';
+                        deepLinkUrl = 'disneyplus://'; // Deep link para Disney+
                         break;
                     case 'hbo':
                         servicioNombre = 'Abrir HBO';
                         servicioUrl = 'https://www.hbo.com';
+                        deepLinkUrl = 'hbo://'; // Deep link para HBO
                         break;
                     // Agrega más servicios según lo necesites
                     default:
                         servicioNombre = 'Abrir ' + params.servicio;
                         servicioUrl = '#';  // URL predeterminada en caso de servicio desconocido
-                }
-
-                // Crear el botón para abrir el servicio
-                servicioDiv.innerHTML = `
-                    <button onclick="window.location.href='${servicioUrl}'">${servicioNombre}</button>
-                `;
-            }
-        }
-
-        mostrarCredenciales();
-    </script>
-</body>
-</html>
+                 
