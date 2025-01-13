@@ -3,120 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credenciales de Servicio</title>
+    <title>Copiar Credenciales</title>
     <style>
         body {
             background-color: #f5f5f5;
-            color: #333333;
+            color: #333;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
         }
 
         .contenido {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             width: 90%;
             max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        .logo img {
+            width: 120px;
+            margin-bottom: 20px;
         }
 
         h1 {
             color: #F7931E;
+            font-size: 24px;
             margin-bottom: 20px;
         }
 
-        .imagen-servicio img {
-            width: 150px;
-            height: 150px;
-            border-radius: 20px;
-            margin-bottom: 20px;
-        }
-
-        .credenciales p {
-            margin: 10px 0;
+        .credenciales {
+            text-align: left;
             font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .credenciales span {
+            font-weight: bold;
         }
 
         .botones {
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
             gap: 10px;
+            justify-content: center;
+            margin-bottom: 10px;
         }
 
-        .botones button {
-            flex: 1;
+        button {
             background-color: #F7931E;
             color: white;
             border: none;
-            border-radius: 10px;
-            padding: 10px;
+            border-radius: 8px;
+            padding: 10px 15px;
             font-size: 14px;
             cursor: pointer;
+            flex: 1 1 calc(33.333% - 10px);
+            min-width: 100px;
         }
 
-        .botones button:hover {
-            background-color: #e68a00;
-        }
-
-        .boton-pin {
-            background-color: #F7931E;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 10px;
-            font-size: 14px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .boton-pin:hover {
+        button:hover {
             background-color: #e68a00;
         }
 
         .boton-servicio {
-            margin-top: 20px;
-            display: inline-block;
-            background-color: #ba03db;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 10px 20px;
+            margin-top: 10px;
+            padding: 12px;
             font-size: 16px;
-            cursor: pointer;
-            text-decoration: none;
+            width: 100%;
         }
 
-        .boton-servicio:hover {
-            background-color: #a002c0;
+        .imagen-servicio img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
     <div class="contenido">
-        <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo">
+        <div class="logo">
+            <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo">
+        </div>
         <h1>¡Hazlo rápido, Hazlo fácil!</h1>
         <div class="imagen-servicio">
-            <img src="" alt="Servicio">
+            <img src="https://github.com/Facil506/credenciales-copia/blob/main/netflix.png?raw=true" alt="Servicio">
         </div>
         <div class="credenciales">
             <p>Usuario: <span id="usuario"></span></p>
             <p>Contraseña: <span id="contraseña"></span></p>
+            <p>PIN: <span id="pin"></span></p>
         </div>
         <div class="botones">
             <button onclick="copiarUsuario()">Copiar Usuario</button>
             <button onclick="copiarContraseña()">Copiar Contraseña</button>
+            <button onclick="copiarPin()">Copiar PIN</button>
         </div>
-        <div>
-            <p>PIN: <span id="pin"></span></p>
-            <button class="boton-pin" onclick="copiarPin()">Copiar PIN</button>
-        </div>
-        <a href="#" class="boton-servicio" onclick="abrirServicio()">Abrir Servicio</a>
+        <button class="boton-servicio" onclick="abrirServicio()">Abrir Servicio</button>
     </div>
 
     <script>
@@ -132,36 +124,12 @@
 
         function mostrarCredenciales() {
             const params = obtenerParametrosURL();
-
-            // Mostrar credenciales
             document.getElementById("usuario").textContent = params.usuario;
             document.getElementById("contraseña").textContent = params.contraseña;
             document.getElementById("pin").textContent = params.pin;
 
-            // Cambiar botón de servicio
             const botonServicio = document.querySelector(".boton-servicio");
             botonServicio.textContent = `Abrir ${params.plataforma}`;
-
-            // Cambiar imagen de la plataforma
-            const plataformaImagenes = {
-                "Netflix": "https://github.com/Facil506/credenciales-copia/blob/main/netflix.png?raw=true",
-                "Disney+": "https://github.com/Facil506/credenciales-copia/blob/main/disneyplus.png?raw=true",
-                "VIX": "https://github.com/Facil506/credenciales-copia/blob/main/vix.png?raw=true",
-                "MAX": "https://github.com/Facil506/credenciales-copia/blob/main/max.png?raw=true",
-                "YouTube Premium": "https://github.com/Facil506/credenciales-copia/blob/main/youtube.png?raw=true",
-                "Paramount": "https://github.com/Facil506/credenciales-copia/blob/main/paramount.png?raw=true",
-                "Prime Video": "https://github.com/Facil506/credenciales-copia/blob/main/primevideo.png?raw=true",
-                "Spotify": "https://github.com/Facil506/credenciales-copia/blob/main/spotify.png?raw=true"
-            };
-
-            const imagenServicio = document.querySelector(".imagen-servicio img");
-            if (plataformaImagenes[params.plataforma]) {
-                imagenServicio.src = plataformaImagenes[params.plataforma];
-                imagenServicio.alt = params.plataforma;
-            } else {
-                imagenServicio.src = "https://via.placeholder.com/150";
-                imagenServicio.alt = "Servicio desconocido";
-            }
         }
 
         function copiarTexto(texto) {
@@ -189,14 +157,12 @@
 
         function abrirServicio() {
             const params = obtenerParametrosURL();
-            alert(`Abriendo ${params.plataforma}`);
-            // Aquí puedes configurar una URL real del servicio si está disponible
+            window.open(params.plataforma, "_blank");
         }
 
-        // Inicializar
+        // Mostrar las credenciales al cargar la página
         mostrarCredenciales();
     </script>
 </body>
 </html>
-
 
