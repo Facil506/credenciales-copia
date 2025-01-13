@@ -77,7 +77,16 @@
             margin-top: 10px;
             padding: 12px;
             font-size: 16px;
+            background-color: #ba03db;
+            color: white;
+            border: none;
+            border-radius: 8px;
             width: 100%;
+            cursor: pointer;
+        }
+
+        .boton-servicio:hover {
+            background-color: #a002c0;
         }
 
         .imagen-servicio img {
@@ -96,7 +105,7 @@
         </div>
         <h1>¡Hazlo rápido, Hazlo fácil!</h1>
         <div class="imagen-servicio">
-            <img src="https://github.com/Facil506/credenciales-copia/blob/main/netflix.png?raw=true" alt="Servicio">
+            <img src="" alt="Servicio" id="imagen-plataforma">
         </div>
         <div class="credenciales">
             <p>Usuario: <span id="usuario"></span></p>
@@ -108,7 +117,7 @@
             <button onclick="copiarContraseña()">Copiar Contraseña</button>
             <button onclick="copiarPin()">Copiar PIN</button>
         </div>
-        <button class="boton-servicio" onclick="abrirServicio()">Abrir Servicio</button>
+        <button class="boton-servicio" id="boton-servicio" onclick="abrirServicio()">Abrir Servicio</button>
     </div>
 
     <script>
@@ -118,7 +127,8 @@
                 usuario: params.get("usuario") || "No especificado",
                 contraseña: params.get("contraseña") || "No especificada",
                 pin: params.get("pin") || "No especificado",
-                plataforma: params.get("plataforma") || "Servicio"
+                plataforma: params.get("plataforma") || "Servicio",
+                url: params.get("url") || "#"
             };
         }
 
@@ -128,7 +138,22 @@
             document.getElementById("contraseña").textContent = params.contraseña;
             document.getElementById("pin").textContent = params.pin;
 
-            const botonServicio = document.querySelector(".boton-servicio");
+            const imagenesPlataforma = {
+                "Netflix": "https://github.com/Facil506/credenciales-copia/blob/main/netflix.png?raw=true",
+                "Disney+": "https://github.com/Facil506/credenciales-copia/blob/main/disneyplus.png?raw=true",
+                "VIX": "https://github.com/Facil506/credenciales-copia/blob/main/vix.png?raw=true",
+                "MAX": "https://github.com/Facil506/credenciales-copia/blob/main/max.png?raw=true",
+                "YouTube Premium": "https://github.com/Facil506/credenciales-copia/blob/main/youtube.png?raw=true",
+                "Paramount": "https://github.com/Facil506/credenciales-copia/blob/main/paramount.png?raw=true",
+                "Prime Video": "https://github.com/Facil506/credenciales-copia/blob/main/primevideo.png?raw=true",
+                "Spotify": "https://github.com/Facil506/credenciales-copia/blob/main/spotify.png?raw=true"
+            };
+
+            const imgPlataforma = document.getElementById("imagen-plataforma");
+            imgPlataforma.src = imagenesPlataforma[params.plataforma] || "https://via.placeholder.com/100";
+            imgPlataforma.alt = params.plataforma;
+
+            const botonServicio = document.getElementById("boton-servicio");
             botonServicio.textContent = `Abrir ${params.plataforma}`;
         }
 
@@ -157,10 +182,9 @@
 
         function abrirServicio() {
             const params = obtenerParametrosURL();
-            window.open(params.plataforma, "_blank");
+            window.open(params.url, "_blank");
         }
 
-        // Mostrar las credenciales al cargar la página
         mostrarCredenciales();
     </script>
 </body>
