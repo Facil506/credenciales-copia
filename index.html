@@ -65,8 +65,8 @@
         }
 
         .logo-circle {
-            width: 80px;
-            height: 80px;
+            width: 60px; /* Tamaño original */
+            height: 60px; /* Tamaño original */
             border-radius: 50%;
             margin: 20px 0;
             overflow: hidden;
@@ -181,12 +181,12 @@
                     case 'vix':
                         servicioNombre = 'Abrir Vix';
                         servicioUrl = 'https://www.vix.com';
-                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Vix_logo_2020.svg';
+                        logoUrl = 'https://www.hollywoodreporter.com/wp-content/uploads/2024/01/ViX_logo-1-H-2024.jpg';
                         break;
                     case 'spotify':
                         servicioNombre = 'Abrir Spotify';
                         servicioUrl = 'https://www.spotify.com';
-                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/6/69/Spotify_Logo_2015.svg';
+                        logoUrl = 'https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2021/03/Spotify-Logo-Green-Black.jpg?fit=2000%2C1333&quality=70&strip=all&ssl=1';
                         break;
                     case 'youtubepremium':
                         servicioNombre = 'Abrir YouTube Premium';
@@ -196,7 +196,7 @@
                     case 'paramount':
                         servicioNombre = 'Abrir Paramount+';
                         servicioUrl = 'https://www.paramountplus.com';
-                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Paramount%2B_logo.svg';
+                        logoUrl = 'https://i0.wp.com/elpoderdelasideas.com/wp-content/uploads/paramount-2021-logo-elpoderdelasideas.png?resize=696%2C339';
                         break;
                     case 'primevideo':
                         servicioNombre = 'Abrir Prime Video';
@@ -212,14 +212,13 @@
                 // Cambiar imagen de la plataforma
                 document.getElementById("logoPlataforma").src = logoUrl;
 
-                servicioDiv.innerHTML = `
-                    <button onclick="window.open('${servicioUrl}', '_blank')">
-                        ${servicioNombre}
-                    </button>
-                `;
+                // Crear botón para abrir la plataforma
+                const buttonHTML = `<button onclick="window.open('${servicioUrl}', '_blank')">${servicioNombre}</button>`;
+                servicioDiv.innerHTML = buttonHTML;
             }
         }
 
+        // Llamamos a la función para mostrar las credenciales y servicio al cargar la página
         mostrarCredenciales();
     </script>
 </body>
