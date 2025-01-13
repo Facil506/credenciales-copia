@@ -33,6 +33,8 @@
             font-size: 16px;
             cursor: pointer;
             margin: 10px;
+            display: flex;
+            align-items: center;
         }
 
         button:hover {
@@ -47,6 +49,21 @@
         .logo img {
             width: 150px;
             margin-bottom: 20px;
+        }
+
+        /* Círculo con el logo */
+        .logo-circle {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+
+        .logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 </head>
@@ -121,54 +138,70 @@
                 
                 let servicioNombre = '';
                 let servicioUrl = '';
-                let deepLinkUrl = '';
+                let logoUrl = '';
 
-                // Dependiendo del servicio, establecer nombre, URL de redirección y deep link
+                // Dependiendo del servicio, establecer URL para redirigir a la página web y la URL del logo
                 switch (servicio) {
                     case 'netflix':
                         servicioNombre = 'Abrir Netflix';
-                        servicioUrl = 'https://www.netflix.com';
-                        deepLinkUrl = 'https://www.netflix.com'; // URL web de Netflix
+                        servicioUrl = 'https://www.netflix.com';  
+                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_of_Netflix.svg';  
                         break;
                     case 'disneyplus':
                         servicioNombre = 'Abrir Disney+';
-                        servicioUrl = 'https://www.disneyplus.com';
-                        deepLinkUrl = 'https://www.disneyplus.com'; // URL web de Disney+
+                        servicioUrl = 'https://www.disneyplus.com';  
+                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Disney%2B_logo.svg';  
                         break;
-                    case 'hbo':
-                        servicioNombre = 'Abrir HBO';
-                        servicioUrl = 'https://www.hbo.com';
-                        deepLinkUrl = 'https://www.hbo.com'; // URL web de HBO
+                    case 'max':
+                        servicioNombre = 'Abrir Max';
+                        servicioUrl = 'https://www.hbo.com';  
+                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/9/9b/HBO_Max_logo.svg';  
+                        break;
+                    case 'vix':
+                        servicioNombre = 'Abrir Vix';
+                        servicioUrl = 'https://www.vix.com';  
+                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Vix_logo.svg';  
+                        break;
+                    case 'spotify':
+                        servicioNombre = 'Abrir Spotify';
+                        servicioUrl = 'https://www.spotify.com';  
+                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/6/69/Spotify_Logo.svg';  
+                        break;
+                    case 'youtubepremium':
+                        servicioNombre = 'Abrir YouTube Premium';
+                        servicioUrl = 'https://www.youtube.com/premium';  
+                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/2/23/YouTube_logo_2015.png';  
+                        break;
+                    case 'paramount':
+                        servicioNombre = 'Abrir Paramount+';
+                        servicioUrl = 'https://www.paramountplus.com';  
+                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Paramount%2B_logo.svg';  
+                        break;
+                    case 'primevideo':
+                        servicioNombre = 'Abrir Prime Video';
+                        servicioUrl = 'https://www.amazon.com/Prime-Video';  
+                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/d/de/Amazon_Prime_Video_logo.svg';  
                         break;
                     default:
                         servicioNombre = 'Abrir ' + params.servicio;
-                        servicioUrl = '#';  // URL predeterminada en caso de servicio desconocido
-                        deepLinkUrl = '#'; // No hay deep link para servicios desconocidos
+                        servicioUrl = '#';  
+                        logoUrl = '';
                 }
 
-                // Crear el botón para abrir el servicio en otra pestaña
+                // Crear el botón con el logo en círculo
                 servicioDiv.innerHTML = `
-                    <button onclick="abrirServicio('${deepLinkUrl}', '${servicioUrl}')">${servicioNombre}</button>
+                    <button onclick="window.open('${servicioUrl}', '_blank')">
+                        <div class="logo-circle">
+                            <img src="${logoUrl}" alt="${servicioNombre} logo">
+                        </div>
+                        ${servicioNombre}
+                    </button>
                 `;
             }
-        }
-
-        // Función para intentar abrir la app o redirigir a la web en otra pestaña
-        function abrirServicio(deepLinkUrl, servicioUrl) {
-            // Intentar abrir la app usando el deep link
-            const a = document.createElement('a');
-            a.href = deepLinkUrl;
-            a.target = "_blank";  // Asegurarse de que se abre en una nueva pestaña
-            document.body.appendChild(a);
-            a.click();
-
-            // Si la app no se abre (fallo en deep link), redirigir a la web
-            setTimeout(() => {
-                window.open(servicioUrl, '_blank');  // Redirige a la página web en una nueva pestaña
-            }, 2000); // 2 segundos de espera antes de redirigir al sitio web
         }
 
         mostrarCredenciales();
     </script>
 </body>
 </html>
+
