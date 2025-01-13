@@ -160,17 +160,17 @@
 
         function copiarUsuario() {
             const params = obtenerParametrosURL();
-            copiarTexto(`Usuario: ${params.usuario}`);
+            copiarTexto(params.usuario);
         }
 
         function copiarContraseña() {
             const params = obtenerParametrosURL();
-            copiarTexto(`Contraseña: ${params.contraseña}`);
+            copiarTexto(params.contraseña); 
         }
 
         function copiarPin() {
             const params = obtenerParametrosURL();
-            copiarTexto(`PIN: ${params.pin}`);
+            copiarTexto(params.pin);
         }
 
         function abrirServicio() {
