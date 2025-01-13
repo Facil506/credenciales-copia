@@ -77,16 +77,7 @@
             margin-top: 10px;
             padding: 12px;
             font-size: 16px;
-            background-color: #ba03db;
-            color: white;
-            border: none;
-            border-radius: 8px;
             width: 100%;
-            cursor: pointer;
-        }
-
-        .boton-servicio:hover {
-            background-color: #a002c0;
         }
 
         .imagen-servicio img {
@@ -105,7 +96,7 @@
         </div>
         <h1>¡Hazlo rápido, Hazlo fácil!</h1>
         <div class="imagen-servicio">
-            <img src="" alt="Servicio" id="imagen-plataforma">
+            <img id="imagenPlataforma" src="" alt="Servicio">
         </div>
         <div class="credenciales">
             <p>Usuario: <span id="usuario"></span></p>
@@ -117,7 +108,7 @@
             <button onclick="copiarContraseña()">Copiar Contraseña</button>
             <button onclick="copiarPin()">Copiar PIN</button>
         </div>
-        <button class="boton-servicio" id="boton-servicio" onclick="abrirServicio()">Abrir Servicio</button>
+        <button class="boton-servicio" id="botonServicio" onclick="abrirServicio()">Abrir Servicio</button>
     </div>
 
     <script>
@@ -127,34 +118,36 @@
                 usuario: params.get("usuario") || "No especificado",
                 contraseña: params.get("contraseña") || "No especificada",
                 pin: params.get("pin") || "No especificado",
-                plataforma: params.get("plataforma") || "Servicio",
-                url: params.get("url") || "#"
+                plataforma: params.get("plataforma") || "Servicio"
             };
         }
 
         function mostrarCredenciales() {
             const params = obtenerParametrosURL();
+            const plataforma = params.plataforma.toLowerCase();
+            const imagenPlataforma = document.getElementById("imagenPlataforma");
+            const botonServicio = document.getElementById("botonServicio");
+
+            const imagenes = {
+                netflix: "https://github.com/Facil506/credenciales-copia/blob/main/netflix.png?raw=true",
+                disney: "https://github.com/Facil506/credenciales-copia/blob/main/disneyplus.png?raw=true",
+                vix: "https://github.com/Facil506/credenciales-copia/blob/main/vix.png?raw=true",
+                max: "https://github.com/Facil506/credenciales-copia/blob/main/max.png?raw=true",
+                youtube: "https://github.com/Facil506/credenciales-copia/blob/main/youtube.png?raw=true",
+                paramount: "https://github.com/Facil506/credenciales-copia/blob/main/paramount.png?raw=true",
+                prime: "https://github.com/Facil506/credenciales-copia/blob/main/primevideo.png?raw=true",
+                spotify: "https://github.com/Facil506/credenciales-copia/blob/main/spotify.png?raw=true"
+            };
+
+            // Configurar imagen y botón según la plataforma
+            imagenPlataforma.src = imagenes[plataforma] || "https://via.placeholder.com/100";
+            botonServicio.textContent = `Abrir ${params.plataforma}`;
+            botonServicio.setAttribute("data-url", getPlataformaURL(plataforma));
+
+            // Mostrar credenciales
             document.getElementById("usuario").textContent = params.usuario;
             document.getElementById("contraseña").textContent = params.contraseña;
             document.getElementById("pin").textContent = params.pin;
-
-            const imagenesPlataforma = {
-                "Netflix": "https://github.com/Facil506/credenciales-copia/blob/main/netflix.png?raw=true",
-                "Disney+": "https://github.com/Facil506/credenciales-copia/blob/main/disneyplus.png?raw=true",
-                "VIX": "https://github.com/Facil506/credenciales-copia/blob/main/vix.png?raw=true",
-                "MAX": "https://github.com/Facil506/credenciales-copia/blob/main/max.png?raw=true",
-                "YouTube Premium": "https://github.com/Facil506/credenciales-copia/blob/main/youtube.png?raw=true",
-                "Paramount": "https://github.com/Facil506/credenciales-copia/blob/main/paramount.png?raw=true",
-                "Prime Video": "https://github.com/Facil506/credenciales-copia/blob/main/primevideo.png?raw=true",
-                "Spotify": "https://github.com/Facil506/credenciales-copia/blob/main/spotify.png?raw=true"
-            };
-
-            const imgPlataforma = document.getElementById("imagen-plataforma");
-            imgPlataforma.src = imagenesPlataforma[params.plataforma] || "https://via.placeholder.com/100";
-            imgPlataforma.alt = params.plataforma;
-
-            const botonServicio = document.getElementById("boton-servicio");
-            botonServicio.textContent = `Abrir ${params.plataforma}`;
         }
 
         function copiarTexto(texto) {
@@ -181,8 +174,27 @@
         }
 
         function abrirServicio() {
-            const params = obtenerParametrosURL();
-            window.open(params.url, "_blank");
+            const botonServicio = document.getElementById("botonServicio");
+            const url = botonServicio.getAttribute("data-url");
+            if (url) {
+                window.open(url, "_blank");
+            } else {
+                alert("No se encontró la URL del servicio.");
+            }
+        }
+
+        function getPlataformaURL(plataforma) {
+            const urls = {
+                netflix: "https://www.netflix.com",
+                disney: "https://www.disneyplus.com",
+                vix: "https://vix.com",
+                max: "https://www.max.com",
+                youtube: "https://www.youtube.com/premium",
+                paramount: "https://www.paramountplus.com",
+                prime: "https://www.primevideo.com",
+                spotify: "https://www.spotify.com"
+            };
+            return urls[plataforma] || "#";
         }
 
         mostrarCredenciales();
