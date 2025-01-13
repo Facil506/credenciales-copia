@@ -144,4 +144,32 @@
                     default:
                         servicioNombre = 'Abrir ' + params.servicio;
                         servicioUrl = '#';  // URL predeterminada en caso de servicio desconocido
-                 
+                        deepLinkUrl = '#'; // No hay deep link para servicios desconocidos
+                }
+
+                // Crear el botón para abrir el servicio
+                servicioDiv.innerHTML = `
+                    <button onclick="abrirApp('${deepLinkUrl}', '${servicioUrl}')">${servicioNombre}</button>
+                `;
+            }
+        }
+
+        // Función para intentar abrir la app
+        function abrirApp(deepLinkUrl, servicioUrl) {
+            // Intentar abrir la app usando el deep link
+            const a = document.createElement('a');
+            a.href = deepLinkUrl;
+            a.target = "_blank";
+            document.body.appendChild(a);
+            a.click();
+
+            // Si la app no está instalada, redirige al sitio web
+            setTimeout(() => {
+                window.location.href = servicioUrl;
+            }, 2000); // 2 segundos de espera antes de redirigir al sitio web
+        }
+
+        mostrarCredenciales();
+    </script>
+</body>
+</html>
