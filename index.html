@@ -23,17 +23,13 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            min-width: 300px; /* Ancho mínimo */
-            max-width: 90%; /* Ajuste responsivo */
+            width: 90%;
+            max-width: 400px;
             box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
 
         .logo img {
-            width: 150px;
+            width: 120px;
             margin-bottom: 20px;
         }
 
@@ -43,186 +39,133 @@
             margin-bottom: 20px;
         }
 
-        .servicio-imagen img {
-            width: 80px;
-            height: 80px;
-            border-radius: 15%;
-            margin-bottom: 20px;
-        }
-
         .credenciales {
-            margin-bottom: 20px;
-            font-size: 18px;
             text-align: left;
-            width: 100%;
-        }
-
-        .credenciales p {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            gap: 10px;
-            margin: 5px 0;
+            font-size: 16px;
+            margin-bottom: 20px;
         }
 
         .credenciales span {
-            display: inline-block;
-            flex: 1; /* Se asegura que cada columna se ajuste */
-            text-align: left;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+            font-weight: bold;
+        }
+
+        .botones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 10px;
         }
 
         button {
             background-color: #F7931E;
             color: white;
-            border-radius: 10px;
-            border: 2px solid #F7931E;
-            padding: 10px;
-            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
             cursor: pointer;
-            margin: 10px 5px;
-            width: calc(50% - 20px);
-            box-sizing: border-box;
+            flex: 1 1 calc(33.333% - 10px);
+            min-width: 100px;
         }
 
         button:hover {
             background-color: #e68a00;
-            border-color: #cc7a00;
         }
 
-        .btn-abierto {
-            margin-top: 20px;
-            background-color: #4CAF50;
-            border-color: #4CAF50;
+        .boton-servicio {
+            margin-top: 10px;
+            padding: 12px;
+            font-size: 16px;
             width: 100%;
         }
-        
-        .btn-abierto:hover {
-            background-color: #45a049;
+
+        .imagen-servicio img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
     <div class="contenido">
         <div class="logo">
-            <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo de la marca">
+            <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo">
         </div>
         <h1>¡Hazlo rápido, Hazlo fácil!</h1>
-        
-        <div class="servicio-imagen">
-            <img id="logoPlataforma" src="" alt="Logo del servicio">
+        <div class="imagen-servicio">
+            <img src="https://github.com/Facil506/credenciales-copia/blob/main/netflix.png?raw=true" alt="Servicio">
         </div>
-
         <div class="credenciales">
-            <p><span>Usuario:</span> <span id="usuarioTexto"></span></p>
-            <p><span>Contraseña:</span> <span id="contraseñaTexto"></span></p>
+            <p>Usuario: <span id="usuario"></span></p>
+            <p>Contraseña: <span id="contraseña"></span></p>
+            <p>PIN: <span id="pin"></span></p>
         </div>
-
-        <div>
-            <button onclick="copiarTexto('usuarioTexto')">Copiar Usuario</button>
-            <button onclick="copiarTexto('contraseñaTexto')">Copiar Contraseña</button>
+        <div class="botones">
+            <button onclick="copiarUsuario()">Copiar Usuario</button>
+            <button onclick="copiarContraseña()">Copiar Contraseña</button>
+            <button onclick="copiarPin()">Copiar PIN</button>
         </div>
-
-        <div class="credenciales">
-            <p><span>PIN:</span> <span id="pinTexto"></span></p>
-            <button onclick="copiarTexto('pinTexto')">Copiar PIN</button>
-        </div>
-
-        <button id="btnAbrir" class="btn-abierto"></button>
+        <button class="boton-servicio" onclick="abrirServicio()">Abrir Servicio</button>
     </div>
 
     <script>
         function obtenerParametrosURL() {
-            const urlParams = new URLSearchParams(window.location.search);
+            const params = new URLSearchParams(window.location.search);
             return {
-                usuario: urlParams.get('usuario') || 'No especificado',
-                contraseña: urlParams.get('contraseña') || 'No especificada',
-                pin: urlParams.get('pin') || 'No especificado',
-                servicio: urlParams.get('servicio')
+                usuario: params.get("usuario") || "No especificado",
+                contraseña: params.get("contraseña") || "No especificada",
+                pin: params.get("pin") || "No especificado",
+                plataforma: params.get("plataforma") || "Servicio"
             };
-        }
-
-        function copiarTexto(elementId) {
-            const texto = document.getElementById(elementId).textContent;
-            navigator.clipboard.writeText(texto).then(() => {
-                alert('Texto copiado al portapapeles');
-            });
         }
 
         function mostrarCredenciales() {
             const params = obtenerParametrosURL();
-            document.getElementById("usuarioTexto").textContent = params.usuario;
-            document.getElementById("contraseñaTexto").textContent = params.contraseña;
-            document.getElementById("pinTexto").textContent = params.pin;
+            document.getElementById("usuario").textContent = params.usuario;
+            document.getElementById("contraseña").textContent = params.contraseña;
+            document.getElementById("pin").textContent = params.pin;
 
-            if (params.servicio) {
-                const servicio = params.servicio.toLowerCase();
-                let servicioUrl = '';
-                let logoUrl = '';
-                let servicioNombre = servicio.charAt(0).toUpperCase() + servicio.slice(1);
-
-                switch (servicio) {
-                    case 'disneyplus':
-                        servicioUrl = 'https://www.disneyplus.com';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/disneyplus.png?raw=true';
-                        servicioNombre = 'Disney Plus';
-                        break;
-                    case 'netflix':
-                        servicioUrl = 'https://www.netflix.com/login';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/netflix.png?raw=true';
-                        servicioNombre = 'Netflix';
-                        break;
-                    case 'max':
-                        servicioUrl = 'https://www.hbomax.com';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/max.png?raw=true';
-                        servicioNombre = 'MAX';
-                        break;
-                    case 'vix':
-                        servicioUrl = 'https://www.vix.com';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/vix.png?raw=true';
-                        servicioNombre = 'VIX';
-                        break;
-                    case 'spotify':
-                        servicioUrl = 'https://www.spotify.com';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/spotify.png?raw=true';
-                        servicioNombre = 'Spotify';
-                        break;
-                    case 'youtubepremium':
-                        servicioUrl = 'https://www.youtube.com/premium';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/youtube.png?raw=true';
-                        servicioNombre = 'YouTube Premium';
-                        break;
-                    case 'paramount':
-                        servicioUrl = 'https://www.paramountplus.com';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/paramount.png?raw=true';
-                        servicioNombre = 'Paramount';
-                        break;
-                    case 'primevideo':
-                        servicioUrl = 'https://www.primevideo.com';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/primevideo.png?raw=true';
-                        servicioNombre = 'Prime Video';
-                        break;
-                }
-
-                if (logoUrl) {
-                    document.getElementById("logoPlataforma").src = logoUrl;
-                }
-
-                const btnAbrir = document.getElementById("btnAbrir");
-                btnAbrir.textContent = `Abrir ${servicioNombre}`;
-                btnAbrir.onclick = function() {
-                    window.open(servicioUrl, '_blank');
-                };
-            }
+            const botonServicio = document.querySelector(".boton-servicio");
+            botonServicio.textContent = `Abrir ${params.plataforma}`;
         }
 
+        function copiarTexto(texto) {
+            navigator.clipboard.writeText(texto).then(() => {
+                alert("¡Texto copiado al portapapeles!");
+            }).catch(err => {
+                alert("Error al copiar: " + err);
+            });
+        }
+
+        function copiarUsuario() {
+            const params = obtenerParametrosURL();
+            copiarTexto(`Usuario: ${params.usuario}`);
+        }
+
+        function copiarContraseña() {
+            const params = obtenerParametrosURL();
+            copiarTexto(`Contraseña: ${params.contraseña}`);
+        }
+
+        function copiarPin() {
+            const params = obtenerParametrosURL();
+            copiarTexto(`PIN: ${params.pin}`);
+        }
+
+        function abrirServicio() {
+            const params = obtenerParametrosURL();
+            window.open(params.plataforma, "_blank");
+        }
+
+        // Mostrar las credenciales al cargar la página
         mostrarCredenciales();
     </script>
 </body>
 </html>
+
 
 
 
