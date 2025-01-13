@@ -59,4 +59,116 @@
         <p class="credenciales">
             <span id="usuario">Usuario: <span id="usuarioTexto"></span></span><br>
             <span id="contraseña">Contraseña: <span id="contraseñaTexto"></span></span><br>
-            <span id="pin">PIN: <span id="pinTexto"></span></s
+            <span id="pin">PIN: <span id="pinTexto"></span></span><br>
+        </p>
+        <button onclick="copiarUsuario()">Copiar Usuario</button>
+        <button onclick="copiarContraseña()">Copiar Contraseña</button>
+        <button onclick="copiarPin()">Copiar PIN</button>
+        <div id="servicioDiv"></div>
+    </div>
+
+    <script>
+        function obtenerParametrosURL() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                usuario: decodeURIComponent(params.get("usuario")) || "No especificado",
+                contraseña: decodeURIComponent(params.get("contraseña")) || "No especificada",
+                pin: decodeURIComponent(params.get("pin")) || "No es necesario",
+                servicio: decodeURIComponent(params.get("servicio")) || null
+            };
+        }
+
+        function copiarUsuario() {
+            const params = obtenerParametrosURL();
+            const texto = params.usuario;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert("¡Usuario copiado al portapapeles!");
+            }).catch(err => {
+                alert("Error al copiar: " + err);
+            });
+        }
+
+        function copiarContraseña() {
+            const params = obtenerParametrosURL();
+            const texto = params.contraseña;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert("¡Contraseña copiada al portapapeles!");
+            }).catch(err => {
+                alert("Error al copiar: " + err);
+            });
+        }
+
+        function copiarPin() {
+            const params = obtenerParametrosURL();
+            const texto = params.pin;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert("¡PIN copiado al portapapeles!");
+            }).catch(err => {
+                alert("Error al copiar: " + err);
+            });
+        }
+
+        function mostrarCredenciales() {
+            const params = obtenerParametrosURL();
+            document.getElementById("usuarioTexto").textContent = params.usuario;
+            document.getElementById("contraseñaTexto").textContent = params.contraseña;
+            document.getElementById("pinTexto").textContent = params.pin;
+            
+            // Mostrar el botón de servicio si existe el parámetro 'servicio'
+            if (params.servicio) {
+                const servicioDiv = document.getElementById("servicioDiv");
+                const servicio = params.servicio.toLowerCase();  // Convertir a minúsculas para mayor flexibilidad
+                
+                let servicioNombre = '';
+                let servicioUrl = '';
+                let deepLinkUrl = '';
+
+                // Dependiendo del servicio, establecer nombre, URL de redirección y deep link
+                switch (servicio) {
+                    case 'netflix':
+                        servicioNombre = 'Abrir Netflix';
+                        servicioUrl = 'https://www.netflix.com';
+                        deepLinkUrl = 'https://www.netflix.com'; // URL web de Netflix
+                        break;
+                    case 'disneyplus':
+                        servicioNombre = 'Abrir Disney+';
+                        servicioUrl = 'https://www.disneyplus.com';
+                        deepLinkUrl = 'https://www.disneyplus.com'; // URL web de Disney+
+                        break;
+                    case 'hbo':
+                        servicioNombre = 'Abrir HBO';
+                        servicioUrl = 'https://www.hbo.com';
+                        deepLinkUrl = 'https://www.hbo.com'; // URL web de HBO
+                        break;
+                    default:
+                        servicioNombre = 'Abrir ' + params.servicio;
+                        servicioUrl = '#';  // URL predeterminada en caso de servicio desconocido
+                        deepLinkUrl = '#'; // No hay deep link para servicios desconocidos
+                }
+
+                // Crear el botón para abrir el servicio en otra pestaña
+                servicioDiv.innerHTML = `
+                    <button onclick="abrirServicio('${deepLinkUrl}', '${servicioUrl}')">${servicioNombre}</button>
+                `;
+            }
+        }
+
+        // Función para intentar abrir la app o redirigir a la web en otra pestaña
+        function abrirServicio(deepLinkUrl, servicioUrl) {
+            // Intentar abrir la app usando el deep link
+            const a = document.createElement('a');
+            a.href = deepLinkUrl;
+            a.target = "_blank";  // Asegurarse de que se abre en una nueva pestaña
+            document.body.appendChild(a);
+            a.click();
+
+            // Si la app no se abre (fallo en deep link), redirigir a la web
+            setTimeout(() => {
+                window.open(servicioUrl, '_blank');  // Redirige a la página web en una nueva pestaña
+            }, 2000); // 2 segundos de espera antes de redirigir al sitio web
+        }
+
+        mostrarCredenciales();
+    </script>
+</body>
+</html>
