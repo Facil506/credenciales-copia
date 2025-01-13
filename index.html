@@ -39,6 +39,14 @@
             margin-bottom: 20px;
         }
 
+        .imagen-servicio img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+        }
+
         .credenciales {
             text-align: left;
             font-size: 16px;
@@ -74,18 +82,11 @@
         }
 
         .boton-servicio {
+            background-color: #F7931E;
             margin-top: 10px;
             padding: 12px;
             font-size: 16px;
             width: 100%;
-        }
-
-        .imagen-servicio img {
-            width: 100px;
-            height: 100px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            object-fit: cover;
         }
     </style>
 </head>
@@ -118,13 +119,13 @@
                 usuario: params.get("usuario") || "No especificado",
                 contraseña: params.get("contraseña") || "No especificada",
                 pin: params.get("pin") || "No especificado",
-                plataforma: params.get("plataforma") || "Servicio"
+                servicio: params.get("servicio") || "Servicio"
             };
         }
 
         function mostrarCredenciales() {
             const params = obtenerParametrosURL();
-            const plataforma = params.plataforma.toLowerCase();
+            const servicio = params.servicio.toLowerCase();
             const imagenPlataforma = document.getElementById("imagenPlataforma");
             const botonServicio = document.getElementById("botonServicio");
 
@@ -139,13 +140,10 @@
                 spotify: "https://github.com/Facil506/credenciales-copia/blob/main/spotify.png?raw=true"
             };
 
-            // Configurar imagen y botón según la plataforma
-            imagenPlataforma.src = imagenes[plataforma] || "https://via.placeholder.com/100";
-            botonServicio.textContent = `Abrir ${params.plataforma}`;
-            botonServicio.style.backgroundColor = "#F7931E"; // Color del botón consistente con los demás
-            botonServicio.setAttribute("data-url", getPlataformaURL(plataforma));
+            imagenPlataforma.src = imagenes[servicio] || "https://via.placeholder.com/100";
+            botonServicio.textContent = `Abrir ${params.servicio}`;
+            botonServicio.setAttribute("data-url", getServicioURL(servicio));
 
-            // Mostrar credenciales
             document.getElementById("usuario").textContent = params.usuario;
             document.getElementById("contraseña").textContent = params.contraseña;
             document.getElementById("pin").textContent = params.pin;
@@ -184,7 +182,7 @@
             }
         }
 
-        function getPlataformaURL(plataforma) {
+        function getServicioURL(servicio) {
             const urls = {
                 netflix: "https://www.netflix.com",
                 disney: "https://www.disneyplus.com",
@@ -195,12 +193,11 @@
                 prime: "https://www.primevideo.com",
                 spotify: "https://www.spotify.com"
             };
-            return urls[plataforma] || "#";
+            return urls[servicio] || "#";
         }
 
         mostrarCredenciales();
     </script>
 </body>
 </html>
-
 
