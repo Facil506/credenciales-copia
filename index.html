@@ -92,7 +92,7 @@
         </div>
 
         <div class="logo-circle">
-            <img id="logoPlataforma" src="https://images.ctfassets.net/y2ske730sjqp/5QQ9SVIdc1tmkqrtFnG9U1/de758bba0f65dcc1c6bc1f31f161003d/BrandAssets_Logos_02-NSymbol.jpg?w=940" alt="Logo de la plataforma">
+            <img id="logoPlataforma" src="" alt="Logo de la plataforma" style="display: none;">
         </div>
 
         <h1>Credenciales</h1>
@@ -191,7 +191,7 @@
                     case 'youtubepremium':
                         servicioNombre = 'Abrir YouTube Premium';
                         servicioUrl = 'https://www.youtube.com/premium';
-                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/YouTube_social_white_square_%282017%29.svg/1200px-YouTube_social_white_square_%282017%29.svg.png';
+                        logoUrl = 'https://imagenes.eltiempo.com/files/image_1200_600/uploads/2023/05/11/645d0a0305568.png';
                         break;
                     case 'paramount':
                         servicioNombre = 'Abrir Paramount+';
@@ -204,30 +204,27 @@
                         logoUrl = 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLssOfBM3hLUDeyJtzHlSdUk3-eal7fkrnFpNnwo0treB5MM9kjPxAX3tOU9lJNS321cQ2Npn0F702FgZJt-6mCQyM2ZI3wPt97lHVV7aaeXR1wUTrod2pUn3y0yiPt_nQiyw6P8HOKE1smFZAw3WDd3K6gILK2DCgzdUFNkyK9g3yDGl5VTpzs4101A/s1920/primevideo.jpg';
                         break;
                     default:
-                        servicioNombre = 'Abrir ' + params.servicio;
+                        servicioNombre = 'Plataforma no especificada';
                         servicioUrl = '#';
-                        logoUrl = 'https://via.placeholder.com/120';
+                        break;
                 }
 
-                // Establecer el logo de la plataforma
-                document.getElementById('logoPlataforma').src = logoUrl;
-
-                // Crear el botón para abrir el servicio
-                const abrirServicioButton = document.createElement('button');
-                abrirServicioButton.textContent = servicioNombre;
-                abrirServicioButton.onclick = function() {
-                    window.open(servicioUrl, '_blank');
-                };
-
-                servicioDiv.appendChild(abrirServicioButton);
+                document.getElementById("logoPlataforma").style.display = 'inline-block'; // Mostrar logo si servicio existe
+                document.getElementById("logoPlataforma").src = logoUrl;
+                
+                const abrirPlataforma = document.createElement("a");
+                abrirPlataforma.href = servicioUrl;
+                abrirPlataforma.target = "_blank";
+                abrirPlataforma.innerHTML = `<button>${servicioNombre}</button>`;
+                servicioDiv.appendChild(abrirPlataforma);
             }
         }
 
-        // Llamar a la función para mostrar las credenciales y el botón de la plataforma
         mostrarCredenciales();
     </script>
 </body>
 </html>
+
 
 
 
