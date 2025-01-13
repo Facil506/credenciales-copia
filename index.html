@@ -69,6 +69,10 @@
 </head>
 <body>
     <div class="contenido">
+        <div class="logo">
+            <!-- Aquí tu logo original -->
+            <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo Original">
+        </div>
         <h1>Credenciales</h1>
         <p class="credenciales">
             <span id="usuario">Usuario: <span id="usuarioTexto"></span></span><br>
@@ -142,16 +146,15 @@
                     case 'disneyplus':
                         servicioNombre = 'Abrir Disney+';
                         servicioUrl = 'https://www.disneyplus.com';  
-                        logoUrl = 'https://cloudfront-us-east-1.images.arcpublishing.com/infobae/5EGT4P4UKRGAZPDR52FKJJW4YU.png';  
+                        logoUrl = 'https://cloudfront-us-east-1.images.arcpublishing.com/infobae/5EGT4P4UKRGAZPDR52FKJJW4YU.png';  // Logo de Disney
                         break;
-                    // Agregar más casos para otras plataformas aquí...
                     default:
                         servicioNombre = 'Abrir ' + params.servicio;
                         servicioUrl = '#';  
                         logoUrl = '';
                 }
 
-                // Crear el botón con el logo en círculo al costado izquierdo
+                // Crear el botón con el logo de la plataforma (Disney) al costado izquierdo
                 servicioDiv.innerHTML = `
                     <button onclick="window.open('${servicioUrl}', '_blank')">
                         <div class="logo-circle">
@@ -167,5 +170,6 @@
     </script>
 </body>
 </html>
+
 
 
