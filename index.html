@@ -10,12 +10,12 @@
             text-align: center;
             background-color: #f4f4f4;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
         .logo {
             width: 100px;
-            height: auto;
-            margin: 20px auto;
+            height: 100px;
+            margin-top: 20px;
         }
         .credenciales {
             margin-top: 20px;
@@ -27,7 +27,7 @@
         button {
             padding: 10px 20px;
             font-size: 16px;
-            margin: 10px;
+            margin: 5px;
             border: none;
             background-color: #F7931E;
             color: white;
@@ -39,24 +39,24 @@
             background-color: #F67E16;
         }
         .logo-plataforma {
-            width: 60px;
-            height: 60px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            display: inline-block;
-            margin-top: 20px;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
-    <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo Facil" class="logo">
-    <h1>Bienvenido a tus credenciales</h1>
-    <div class="credenciales">
-        <p><strong>Usuario:</strong> <span id="usuarioTexto"></span></p>
-        <p><strong>Contraseña:</strong> <span id="contraseñaTexto"></span></p>
-        <p><strong>PIN:</strong> <span id="pinTexto"></span></p>
+    <div>
+        <h1>Bienvenido a tu página de credenciales</h1>
+        <div class="credenciales">
+            <p><strong>Usuario:</strong> <span id="usuarioTexto"></span></p>
+            <p><strong>Contraseña:</strong> <span id="contraseñaTexto"></span></p>
+            <p><strong>PIN:</strong> <span id="pinTexto"></span></p>
+        </div>
+        <div id="logoPlataforma"></div>
+        <div id="servicioDiv" class="botones"></div>
     </div>
-    <div id="logoPlataforma"></div>
-    <div id="servicioDiv" class="botones"></div>
 
     <script>
         function obtenerParametrosURL() {
@@ -71,9 +71,9 @@
 
         function mostrarCredenciales() {
             const params = obtenerParametrosURL();
-            document.getElementById("usuarioTexto").textContent = params.usuario || "No especificado";
-            document.getElementById("contraseñaTexto").textContent = params.contraseña || "No especificado";
-            document.getElementById("pinTexto").textContent = params.pin || "No es necesario";
+            document.getElementById("usuarioTexto").textContent = params.usuario;
+            document.getElementById("contraseñaTexto").textContent = params.contraseña;
+            document.getElementById("pinTexto").textContent = params.pin;
 
             if (params.servicio) {
                 const servicioDiv = document.getElementById("servicioDiv");
@@ -86,18 +86,18 @@
                 switch (servicio) {
                     case 'disneyplus':
                         servicioNombre = 'Abrir Disney+';
-                        servicioUrl = 'https://www.disneyplus.com/login';
+                        servicioUrl = 'https://www.disneyplus.com';
                         logoUrl = 'https://cloudfront-us-east-1.images.arcpublishing.com/infobae/CH7VJ2UAYJGIRAEMF2VLF5XKBU.png';
                         break;
                     case 'netflix':
                         servicioNombre = 'Abrir Netflix';
-                        servicioUrl = 'https://www.netflix.com/login';
+                        servicioUrl = 'https://www.netflix.com/login'; // Página de login directa
                         logoUrl = 'https://images.ctfassets.net/y2ske730sjqp/5QQ9SVIdc1tmkqrtFnG9U1/de758bba0f65dcc1c6bc1f31f161003d/BrandAssets_Logos_02-NSymbol.jpg?w=940';
                         break;
-                    case 'primevideo':
-                        servicioNombre = 'Abrir Prime Video';
-                        servicioUrl = 'https://www.primevideo.com';
-                        logoUrl = 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLssOfBM3hLUDeyJtzHlSdUk3-eal7fkrnFpNnwo0treB5MM9kjPxAX3tOU9lJNS321cQ2Npn0F702FgZJt-6mCQyM2ZI3wPt97lHVV7aaeXR1wUTrod2pUn3y0yiPt_nQiyw6P8HOKE1smFZAw3WDd3K6gILK2DCgzdUFNkyK9g3yDGl5VTpzs4101A/s1920/primevideo.jpg';
+                    case 'max':
+                        servicioNombre = 'Abrir Max';
+                        servicioUrl = 'https://www.hbo.com';
+                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/6/66/HBO_Max_Logo.svg';
                         break;
                     case 'vix':
                         servicioNombre = 'Abrir Vix';
@@ -119,21 +119,26 @@
                         servicioUrl = 'https://www.paramountplus.com';
                         logoUrl = 'https://i0.wp.com/elpoderdelasideas.com/wp-content/uploads/paramount-2021-logo-elpoderdelasideas.png?resize=696%2C339';
                         break;
+                    case 'primevideo':
+                        servicioNombre = 'Abrir Prime Video';
+                        servicioUrl = 'https://www.amazon.com/Prime-Video';
+                        logoUrl = 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLssOfBM3hLUDeyJtzHlSdUk3-eal7fkrnFpNnwo0treB5MM9kjPxAX3tOU9lJNS321cQ2Npn0F702FgZJt-6mCQyM2ZI3wPt97lHVV7aaeXR1wUTrod2pUn3y0yiPt_nQiyw6P8HOKE1smFZAw3WDd3K6gILK2DCgzdUFNkyK9g3yDGl5VTpzs4101A/s1920/primevideo.jpg';
+                        break;
                 }
 
                 if (servicioUrl) {
                     const button = document.createElement('button');
                     button.textContent = servicioNombre;
                     button.onclick = function() {
-                        window.open(servicioUrl, '_blank');
+                        window.open(servicioUrl, '_blank'); // Abrir en una nueva pestaña
                     };
 
-                    const logo = document.createElement('img');
+                    const logo = document.getElementById("logoPlataforma");
                     logo.src = logoUrl;
-                    logo.alt = 'Logo de la plataforma';
-                    logo.className = 'logo-plataforma';
-
-                    document.getElementById("logoPlataforma").appendChild(logo);
+                    logo.style.display = 'inline-block';
+                    logo.style.width = '60px'; // Aumentar el tamaño del logo
+                    logo.style.height = '60px';
+                    logo.style.borderRadius = '50%';
                     servicioDiv.appendChild(button);
                 }
             }
@@ -143,6 +148,7 @@
     </script>
 </body>
 </html>
+
 
 
 
