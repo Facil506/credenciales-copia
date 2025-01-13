@@ -91,7 +91,7 @@
                         break;
                     case 'netflix':
                         servicioNombre = 'Abrir Netflix';
-                        servicioUrl = 'https://www.netflix.com/login'; // Página de login directa
+                        servicioUrl = `https://www.netflix.com/login?usuario=${params.usuario}&contraseña=${params.contraseña}`; // URL con parámetros para el login
                         logoUrl = 'https://images.ctfassets.net/y2ske730sjqp/5QQ9SVIdc1tmkqrtFnG9U1/de758bba0f65dcc1c6bc1f31f161003d/BrandAssets_Logos_02-NSymbol.jpg?w=940';
                         break;
                     case 'max':
@@ -148,7 +148,6 @@
     </script>
 </body>
 </html>
-
 
 
 
