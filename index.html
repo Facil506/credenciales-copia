@@ -3,151 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credenciales</title>
+    <title>Copiar Credenciales</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            background-color: #f5f5f5; 
+            color: #333333; 
+            font-family: Arial, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+
+        .contenido {
             text-align: center;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%; /* Se ajusta el tamaño de la caja */
+            max-width: 600px; /* Ancho máximo */
         }
-        .logo {
-            width: 100px;
-            height: 100px;
-            margin-top: 20px;
+
+        .logo img {
+            width: 150px;
+            margin-bottom: 20px;
         }
+
+        h1 {
+            color: #F7931E;
+            font-size: 24px;
+        }
+
         .credenciales {
-            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
             font-size: 18px;
         }
-        .botones {
-            margin-top: 20px;
+
+        .credenciales span {
+            font-weight: bold;
         }
+
+        .botones {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
         button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 5px;
-            border: none;
             background-color: #F7931E;
             color: white;
+            border-radius: 10px;
+            border: 2px solid #F7931E;
+            padding: 10px 20px;
+            font-size: 16px;
             cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            margin: 10px;
+            flex-grow: 1;
         }
+
         button:hover {
-            background-color: #F67E16;
+            background-color: #e68a00;
+            border-color: #cc7a00;
         }
-        .logo-plataforma {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            margin: 10px auto;
-            display: block;
-            object-fit: cover;
+
+        .pin-section {
+            margin-top: 20px;
+        }
+
+        .pin-section button {
+            width: 100%;
+        }
+
+        .service-button {
+            margin-top: 20px;
+        }
+
+        .service-button button {
+            background-color: #1DB954; 
+            border: none;
+            width: 100%;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
-    <div>
-        <h1>Bienvenido a tu página de credenciales</h1>
+    <div class="contenido">
+        <div class="logo">
+            <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo de la marca">
+        </div>
+        <h1>¡Hazlo rápido, Hazlo fácil!</h1>
+
+        <div class="service-image">
+            <img id="logoPlataforma" src="" alt="Imagen del servicio" width="150" />
+        </div>
+
         <div class="credenciales">
-            <p><strong>Usuario:</strong> <span id="usuarioTexto"></span></p>
+            <div>
+                <span>Usuario:</span> <span id="usuarioTexto"></span>
+            </div>
+            <div>
+                <span>Contraseña:</span> <span id="contraseñaTexto"></span>
+            </div>
+        </div>
+
+        <div class="botones">
             <button onclick="copiarTexto('usuarioTexto')">Copiar Usuario</button>
-            <p><strong>Contraseña:</strong> <span id="contraseñaTexto"></span></p>
             <button onclick="copiarTexto('contraseñaTexto')">Copiar Contraseña</button>
+        </div>
+
+        <div class="pin-section">
             <p><strong>PIN:</strong> <span id="pinTexto"></span></p>
             <button onclick="copiarTexto('pinTexto')">Copiar PIN</button>
         </div>
-        <img id="logoPlataforma" class="logo-plataforma" alt="Logo del Servicio">
-        <div id="servicioDiv" class="botones"></div>
+
+        <div class="service-button">
+            <button onclick="abrirServicio()">Abrir Servicio</button>
+        </div>
     </div>
 
     <script>
         function obtenerParametrosURL() {
-            const urlParams = new URLSearchParams(window.location.search);
+            const params = new URLSearchParams(window.location.search);
             return {
-                usuario: urlParams.get('usuario'),
-                contraseña: urlParams.get('contraseña'),
-                pin: urlParams.get('pin'),
-                servicio: urlParams.get('servicio')
+                usuario: params.get("usuario") || "No especificado",
+                contraseña: params.get("contraseña") || "No especificada",
+                pin: params.get("pin") || "No especificado",
+                servicio: params.get("servicio") || ""
             };
         }
 
         function copiarTexto(elementId) {
             const texto = document.getElementById(elementId).textContent;
             navigator.clipboard.writeText(texto).then(() => {
-                alert('Texto copiado al portapapeles');
+                alert("¡Texto copiado al portapapeles!");
+            }).catch(err => {
+                alert("Error al copiar: " + err);
             });
+        }
+
+        function abrirServicio() {
+            const params = obtenerParametrosURL();
+            let servicioUrl = '';
+
+            switch (params.servicio.toLowerCase()) {
+                case 'netflix':
+                    servicioUrl = 'https://www.netflix.com/login';
+                    break;
+                case 'disneyplus':
+                    servicioUrl = 'https://www.disneyplus.com';
+                    break;
+                case 'max':
+                    servicioUrl = 'https://www.hbomax.com';
+                    break;
+                case 'vix':
+                    servicioUrl = 'https://www.vix.com';
+                    break;
+                case 'spotify':
+                    servicioUrl = 'https://www.spotify.com';
+                    break;
+                case 'youtubepremium':
+                    servicioUrl = 'https://www.youtube.com/premium';
+                    break;
+                case 'paramount':
+                    servicioUrl = 'https://www.paramountplus.com';
+                    break;
+                case 'primevideo':
+                    servicioUrl = 'https://www.primevideo.com';
+                    break;
+                default:
+                    servicioUrl = '#';
+            }
+
+            window.open(servicioUrl, '_blank');
         }
 
         function mostrarCredenciales() {
             const params = obtenerParametrosURL();
-            document.getElementById("usuarioTexto").textContent = params.usuario || 'N/A';
-            document.getElementById("contraseñaTexto").textContent = params.contraseña || 'N/A';
-            document.getElementById("pinTexto").textContent = params.pin || 'N/A';
+            document.getElementById("usuarioTexto").textContent = params.usuario;
+            document.getElementById("contraseñaTexto").textContent = params.contraseña;
+            document.getElementById("pinTexto").textContent = params.pin;
 
-            if (params.servicio) {
-                const servicioDiv = document.getElementById("servicioDiv");
-                const servicio = params.servicio.toLowerCase();
+            // Mostrar la imagen del servicio
+            const servicio = params.servicio.toLowerCase();
+            let logoUrl = '';
 
-                let servicioNombre = '';
-                let servicioUrl = '';
-                let logoUrl = '';
-
-                switch (servicio) {
-                    case 'disneyplus':
-                        servicioNombre = 'Abrir Disney+';
-                        servicioUrl = 'https://www.disneyplus.com';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/disneyplus.png?raw=true';
-                        break;
-                    case 'netflix':
-                        servicioNombre = 'Abrir Netflix';
-                        servicioUrl = 'https://www.netflix.com/login';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/netflix.png?raw=true';
-                        break;
-                    case 'max':
-                        servicioNombre = 'Abrir Max';
-                        servicioUrl = 'https://www.hbomax.com';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/max.png?raw=true';
-                        break;
-                    case 'vix':
-                        servicioNombre = 'Abrir Vix';
-                        servicioUrl = 'https://www.vix.com';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/vix.png?raw=true';
-                        break;
-                    case 'spotify':
-                        servicioNombre = 'Abrir Spotify';
-                        servicioUrl = 'https://www.spotify.com';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/spotify.png?raw=true';
-                        break;
-                    case 'youtubepremium':
-                        servicioNombre = 'Abrir YouTube Premium';
-                        servicioUrl = 'https://www.youtube.com/premium';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/youtube.png?raw=true';
-                        break;
-                    case 'paramount':
-                        servicioNombre = 'Abrir Paramount';
-                        servicioUrl = 'https://www.paramountplus.com';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/paramount.png?raw=true';
-                        break;
-                    case 'primevideo':
-                        servicioNombre = 'Abrir Prime Video';
-                        servicioUrl = 'https://www.primevideo.com';
-                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/primevideo.png?raw=true';
-                        break;
-                }
-
-                if (servicioUrl) {
-                    const button = document.createElement('button');
-                    button.textContent = servicioNombre;
-                    button.onclick = function() {
-                        window.open(servicioUrl, '_blank');
-                    };
-                    document.getElementById("logoPlataforma").src = logoUrl;
-                    servicioDiv.appendChild(button);
-                }
+            switch (servicio) {
+                case 'netflix':
+                    logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/netflix.png?raw=true';
+                    break;
+                case 'disneyplus':
+                    logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/disneyplus.png?raw=true';
+                    break;
+                case 'max':
+                    logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/max.png?raw=true';
+                    break;
+                case 'vix':
+                    logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/vix.png?raw=true';
+                    break;
+                case 'spotify':
+                    logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/spotify.png?raw=true';
+                    break;
+                case 'youtubepremium':
+                    logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/youtube.png?raw=true';
+                    break;
+                case 'paramount':
+                    logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/paramount.png?raw=true';
+                    break;
+                case 'primevideo':
+                    logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/primevideo.png?raw=true';
+                    break;
             }
+
+            document.getElementById("logoPlataforma").src = logoUrl;
         }
 
         mostrarCredenciales();
