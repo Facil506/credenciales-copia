@@ -12,6 +12,11 @@
             margin: 0;
             padding: 0;
         }
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-top: 20px;
+        }
         .credenciales {
             margin-top: 20px;
             font-size: 18px;
@@ -34,29 +39,33 @@
             background-color: #F67E16;
         }
         .logo-plataforma {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
+            margin: 10px auto;
             display: block;
-            margin: 20px auto;
         }
     </style>
 </head>
 <body>
     <div>
         <h1>Bienvenido a tu página de credenciales</h1>
+
+        <!-- Logo de la plataforma -->
+        <img id="logoPlataforma" class="logo-plataforma" alt="Logo del Servicio">
+
         <div class="credenciales">
-            <p><strong>Usuario:</strong> <span id="usuarioTexto"></span>
-                <button onclick="copiarTexto('usuarioTexto')">Copiar</button>
-            </p>
-            <p><strong>Contraseña:</strong> <span id="contraseñaTexto"></span>
-                <button onclick="copiarTexto('contraseñaTexto')">Copiar</button>
-            </p>
-            <p><strong>PIN:</strong> <span id="pinTexto"></span>
-                <button onclick="copiarTexto('pinTexto')">Copiar</button>
-            </p>
+            <p><strong>Usuario:</strong> <span id="usuarioTexto"></span></p>
+            <button onclick="copiarTexto('usuarioTexto')">Copiar Usuario</button>
+
+            <p><strong>Contraseña:</strong> <span id="contraseñaTexto"></span></p>
+            <button onclick="copiarTexto('contraseñaTexto')">Copiar Contraseña</button>
+
+            <p><strong>PIN:</strong> <span id="pinTexto"></span></p>
+            <button onclick="copiarTexto('pinTexto')">Copiar PIN</button>
         </div>
-        <img id="logoPlataforma" class="logo-plataforma" src="" alt="Logo de la plataforma">
+
+        <!-- Botones para acceder a servicios -->
         <div id="servicioDiv" class="botones"></div>
     </div>
 
@@ -71,80 +80,87 @@
             };
         }
 
-        function mostrarCredenciales() {
-            const params = obtenerParametrosURL();
-            document.getElementById("usuarioTexto").textContent = params.usuario || "No disponible";
-            document.getElementById("contraseñaTexto").textContent = params.contraseña || "No disponible";
-            document.getElementById("pinTexto").textContent = params.pin || "No disponible";
-
-            const servicios = {
-                disneyplus: {
-                    nombre: 'Abrir Disney+',
-                    url: 'https://www.disneyplus.com/login',
-                    logo: 'https://cloudfront-us-east-1.images.arcpublishing.com/infobae/CH7VJ2UAYJGIRAEMF2VLF5XKBU.png'
-                },
-                netflix: {
-                    nombre: 'Abrir Netflix',
-                    url: 'https://www.netflix.com/login',
-                    logo: 'https://images.ctfassets.net/y2ske730sjqp/5QQ9SVIdc1tmkqrtFnG9U1/de758bba0f65dcc1c6bc1f31f161003d/BrandAssets_Logos_02-NSymbol.jpg?w=940'
-                },
-                max: {
-                    nombre: 'Abrir Max',
-                    url: 'https://www.hbo.com',
-                    logo: 'https://upload.wikimedia.org/wikipedia/commons/6/66/HBO_Max_Logo.svg'
-                },
-                vix: {
-                    nombre: 'Abrir Vix',
-                    url: 'https://www.vix.com',
-                    logo: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/01/ViX_logo-1-H-2024.jpg'
-                },
-                spotify: {
-                    nombre: 'Abrir Spotify',
-                    url: 'https://www.spotify.com',
-                    logo: 'https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2021/03/Spotify-Logo-Green-Black.jpg?fit=2000%2C1333&quality=70&strip=all&ssl=1'
-                },
-                youtubepremium: {
-                    nombre: 'Abrir YouTube Premium',
-                    url: 'https://www.youtube.com/premium',
-                    logo: 'https://imagenes.eltiempo.com/files/image_1200_600/uploads/2023/05/11/645d0a0305568.png'
-                },
-                paramount: {
-                    nombre: 'Abrir Paramount',
-                    url: 'https://www.paramountplus.com',
-                    logo: 'https://i0.wp.com/elpoderdelasideas.com/wp-content/uploads/paramount-2021-logo-elpoderdelasideas.png?resize=696%2C339'
-                },
-                primevideo: {
-                    nombre: 'Abrir Prime Video',
-                    url: 'https://www.amazon.com/Prime-Video',
-                    logo: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLssOfBM3hLUDeyJtzHlSdUk3-eal7fkrnFpNnwo0treB5MM9kjPxAX3tOU9lJNS321cQ2Npn0F702FgZJt-6mCQyM2ZI3wPt97lHVV7aaeXR1wUTrod2pUn3y0yiPt_nQiyw6P8HOKE1smFZAw3WDd3K6gILK2DCgzdUFNkyK9g3yDGl5VTpzs4101A/s1920/primevideo.jpg'
-                }
-            };
-
-            if (params.servicio && servicios[params.servicio.toLowerCase()]) {
-                const servicio = servicios[params.servicio.toLowerCase()];
-                document.getElementById("logoPlataforma").src = servicio.logo;
-
-                const button = document.createElement('button');
-                button.textContent = servicio.nombre;
-                button.onclick = function() {
-                    window.open(servicio.url, '_blank');
-                };
-
-                document.getElementById("servicioDiv").appendChild(button);
-            }
+        function copiarTexto(elementId) {
+            const texto = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert('Texto copiado al portapapeles');
+            });
         }
 
-        function copiarTexto(id) {
-            const texto = document.getElementById(id).textContent;
-            navigator.clipboard.writeText(texto).then(() => {
-                alert(`Texto copiado: ${texto}`);
-            });
+        function mostrarCredenciales() {
+            const params = obtenerParametrosURL();
+            document.getElementById("usuarioTexto").textContent = params.usuario || 'N/A';
+            document.getElementById("contraseñaTexto").textContent = params.contraseña || 'N/A';
+            document.getElementById("pinTexto").textContent = params.pin || 'N/A';
+
+            if (params.servicio) {
+                const servicioDiv = document.getElementById("servicioDiv");
+                const servicio = params.servicio.toLowerCase();
+
+                let servicioNombre = '';
+                let servicioUrl = '';
+                let logoUrl = '';
+
+                switch (servicio) {
+                    case 'disneyplus':
+                        servicioNombre = 'Abrir Disney+';
+                        servicioUrl = 'https://www.disneyplus.com';
+                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/refs/heads/main/5EGT4P4UKRGAZPDR52FKJJW4YU.avif';
+                        break;
+                    case 'netflix':
+                        servicioNombre = 'Abrir Netflix';
+                        servicioUrl = 'https://www.netflix.com/login';
+                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/BrandAssets_Logos_02-NSymbol.jpg?raw=true';
+                        break;
+                    case 'max':
+                        servicioNombre = 'Abrir Max';
+                        servicioUrl = 'https://www.hbomax.com';
+                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/refs/heads/main/DixonBaxi_MAX_002-1.avif';
+                        break;
+                    case 'vix':
+                        servicioNombre = 'Abrir Vix';
+                        servicioUrl = 'https://www.vix.com';
+                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/9e9ae9ca207ea166c3d5c4f1ad9ffe1f.jpg?raw=true';
+                        break;
+                    case 'spotify':
+                        servicioNombre = 'Abrir Spotify';
+                        servicioUrl = 'https://www.spotify.com';
+                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/827ce3cb5c4afe0724fe6aa57497ed358a6f61e9/icon3.svg';
+                        break;
+                    case 'youtubepremium':
+                        servicioNombre = 'Abrir YouTube Premium';
+                        servicioUrl = 'https://www.youtube.com/premium';
+                        logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/youtube_premium-logo_brandlogos.net_lmczv.png?raw=true';
+                        break;
+                    case 'paramount':
+                        servicioNombre = 'Abrir Paramount';
+                        servicioUrl = 'https://www.paramountplus.com';
+                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/refs/heads/main/ParamountPlus_Logo_Blue.webp';
+                        break;
+                    case 'primevideo':
+                        servicioNombre = 'Abrir Prime Video';
+                        servicioUrl = 'https://www.primevideo.com';
+                        logoUrl = 'https://raw.githubusercontent.com/Facil506/credenciales-copia/refs/heads/main/amazon-prime-video-identidad.webp';
+                        break;
+                }
+
+                if (servicioUrl) {
+                    const button = document.createElement('button');
+                    button.textContent = servicioNombre;
+                    button.onclick = function() {
+                        window.open(servicioUrl, '_blank');
+                    };
+                    document.getElementById("logoPlataforma").src = logoUrl;
+                    servicioDiv.appendChild(button);
+                }
+            }
         }
 
         mostrarCredenciales();
     </script>
 </body>
 </html>
+
 
 
 
