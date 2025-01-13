@@ -38,11 +38,18 @@
             width: 100%;
             display: block;
             box-sizing: border-box;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         button:hover {
             background-color: #e68a00;
             border-color: #cc7a00;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);  /* Sube el botón ligeramente */
+        }
+
+        button:active {
+            transform: translateY(2px);  /* Sube el botón un poco cuando se hace clic */
         }
 
         h1 {
@@ -54,10 +61,9 @@
             margin-bottom: 20px;
         }
 
-        /* Círculo con el logo de la plataforma */
         .logo-circle {
-            width: 70px; /* Aumenté el tamaño del círculo */
-            height: 70px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             margin: 20px 0;
             overflow: hidden;
@@ -74,13 +80,10 @@
 <body>
     <div class="contenido">
         <div class="logo">
-            <!-- Aquí tu logo original -->
             <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo Original">
         </div>
 
-        <!-- Logo de la plataforma en círculo -->
         <div class="logo-circle">
-            <!-- Cambia esta URL por el logo de la plataforma -->
             <img src="https://cloudfront-us-east-1.images.arcpublishing.com/infobae/5EGT4P4UKRGAZPDR52FKJJW4YU.png" alt="Logo de la plataforma">
         </div>
 
@@ -143,15 +146,13 @@
             document.getElementById("contraseñaTexto").textContent = params.contraseña;
             document.getElementById("pinTexto").textContent = params.pin;
             
-            // Mostrar el botón de servicio si existe el parámetro 'servicio'
             if (params.servicio) {
                 const servicioDiv = document.getElementById("servicioDiv");
-                const servicio = params.servicio.toLowerCase();  // Convertir a minúsculas para mayor flexibilidad
+                const servicio = params.servicio.toLowerCase();  // Convertir a minúsculas
                 
                 let servicioNombre = '';
                 let servicioUrl = '';
 
-                // Dependiendo del servicio, establecer URL para redirigir a la página web
                 switch (servicio) {
                     case 'disneyplus':
                         servicioNombre = 'Abrir Disney+';
@@ -190,7 +191,6 @@
                         servicioUrl = '#';
                 }
 
-                // Crear el botón para abrir la plataforma
                 servicioDiv.innerHTML = `
                     <button onclick="window.open('${servicioUrl}', '_blank')">
                         ${servicioNombre}
