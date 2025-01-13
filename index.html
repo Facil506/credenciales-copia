@@ -194,7 +194,7 @@
                         logoUrl = 'https://imagenes.eltiempo.com/files/image_1200_600/uploads/2023/05/11/645d0a0305568.png';
                         break;
                     case 'paramount':
-                        servicioNombre = 'Abrir Paramount+';
+                        servicioNombre = 'Abrir Paramount';
                         servicioUrl = 'https://www.paramountplus.com';
                         logoUrl = 'https://i0.wp.com/elpoderdelasideas.com/wp-content/uploads/paramount-2021-logo-elpoderdelasideas.png?resize=696%2C339';
                         break;
@@ -203,20 +203,20 @@
                         servicioUrl = 'https://www.amazon.com/Prime-Video';
                         logoUrl = 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgLssOfBM3hLUDeyJtzHlSdUk3-eal7fkrnFpNnwo0treB5MM9kjPxAX3tOU9lJNS321cQ2Npn0F702FgZJt-6mCQyM2ZI3wPt97lHVV7aaeXR1wUTrod2pUn3y0yiPt_nQiyw6P8HOKE1smFZAw3WDd3K6gILK2DCgzdUFNkyK9g3yDGl5VTpzs4101A/s1920/primevideo.jpg';
                         break;
-                    default:
-                        servicioNombre = 'Plataforma no especificada';
-                        servicioUrl = '#';
-                        break;
                 }
 
-                document.getElementById("logoPlataforma").style.display = 'inline-block'; // Mostrar logo si servicio existe
-                document.getElementById("logoPlataforma").src = logoUrl;
-                
-                const abrirPlataforma = document.createElement("a");
-                abrirPlataforma.href = servicioUrl;
-                abrirPlataforma.target = "_blank";
-                abrirPlataforma.innerHTML = `<button>${servicioNombre}</button>`;
-                servicioDiv.appendChild(abrirPlataforma);
+                if (servicioUrl) {
+                    const button = document.createElement('button');
+                    button.textContent = servicioNombre;
+                    button.onclick = function() {
+                        window.open(servicioUrl, '_blank');
+                    };
+
+                    const logo = document.getElementById("logoPlataforma");
+                    logo.src = logoUrl;
+                    logo.style.display = 'inline-block';
+                    servicioDiv.appendChild(button);
+                }
             }
         }
 
@@ -224,6 +224,7 @@
     </script>
 </body>
 </html>
+
 
 
 
