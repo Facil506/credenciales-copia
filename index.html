@@ -6,66 +6,83 @@
     <title>Credenciales</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+            background-color: #f5f5f5; /* Fondo de la página */
+            color: #333333; /* Color del texto */
+            font-family: Arial, sans-serif; /* Fuente */
+            display: flex; /* Usamos flexbox para centrar */
+            justify-content: center; /* Centrado horizontal */
+            align-items: center; /* Centrado vertical */
+            height: 100vh; /* Ocupa toda la altura */
+            margin: 0; /* Eliminar márgenes del body */
         }
-        .logo {
-            width: 100px;
-            height: 100px;
-            margin-top: 20px;
+
+        .contenido {
+            text-align: center; /* Centrar el contenido */
+            padding: 20px;
+            background-color: white; /* Fondo blanco para el contenedor */
+            border-radius: 10px; /* Bordes redondeados */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            width: 100%; /* Ajuste automático */
+            max-width: 500px; /* Ancho máximo */
         }
+
+        h1 {
+            color: #333333; /* Color del encabezado */
+        }
+
         .credenciales {
-            margin-top: 20px;
             font-size: 18px;
+            margin-bottom: 20px;
         }
+
+        button {
+            background-color: #F7931E; /* Color naranja */
+            color: white;
+            border-radius: 10px; /* Bordes redondeados */
+            border: 2px solid #F7931E; /* Borde naranja */
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #e68a00; /* Color al pasar el mouse */
+            border-color: #cc7a00; /* Borde naranja más oscuro */
+        }
+
+        .logo-plataforma {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
         .botones {
             margin-top: 20px;
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 5px;
-            border: none;
-            background-color: #F7931E;
-            color: white;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #F67E16;
-        }
-        .logo-plataforma {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            margin: 10px auto;
-            display: block;
+
+        .logo img {
+            width: 150px; /* Ajusta el tamaño del logo */
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <div>
+    <div class="contenido">
+        <div class="logo">
+            <img src="https://github.com/Facil506/credenciales-copia/blob/main/Recurso%201.png?raw=true" alt="Logo de la marca">
+        </div>
         <h1>Bienvenido a tu página de credenciales</h1>
-
-        <!-- Logo de la plataforma -->
-        <img id="logoPlataforma" class="logo-plataforma" alt="Logo del Servicio">
-
         <div class="credenciales">
             <p><strong>Usuario:</strong> <span id="usuarioTexto"></span></p>
             <button onclick="copiarTexto('usuarioTexto')">Copiar Usuario</button>
-
             <p><strong>Contraseña:</strong> <span id="contraseñaTexto"></span></p>
             <button onclick="copiarTexto('contraseñaTexto')">Copiar Contraseña</button>
-
             <p><strong>PIN:</strong> <span id="pinTexto"></span></p>
             <button onclick="copiarTexto('pinTexto')">Copiar PIN</button>
         </div>
-
-        <!-- Botones para acceder a servicios -->
+        <img id="logoPlataforma" class="logo-plataforma" alt="Logo del Servicio">
         <div id="servicioDiv" class="botones"></div>
     </div>
 
@@ -73,9 +90,9 @@
         function obtenerParametrosURL() {
             const urlParams = new URLSearchParams(window.location.search);
             return {
-                usuario: urlParams.get('usuario'),
-                contraseña: urlParams.get('contraseña'),
-                pin: urlParams.get('pin'),
+                usuario: urlParams.get('usuario') || 'N/A',
+                contraseña: urlParams.get('contraseña') || 'N/A',
+                pin: urlParams.get('pin') || 'N/A',
                 servicio: urlParams.get('servicio')
             };
         }
@@ -89,9 +106,9 @@
 
         function mostrarCredenciales() {
             const params = obtenerParametrosURL();
-            document.getElementById("usuarioTexto").textContent = params.usuario || 'N/A';
-            document.getElementById("contraseñaTexto").textContent = params.contraseña || 'N/A';
-            document.getElementById("pinTexto").textContent = params.pin || 'N/A';
+            document.getElementById("usuarioTexto").textContent = params.usuario;
+            document.getElementById("contraseñaTexto").textContent = params.contraseña;
+            document.getElementById("pinTexto").textContent = params.pin;
 
             if (params.servicio) {
                 const servicioDiv = document.getElementById("servicioDiv");
@@ -160,6 +177,7 @@
     </script>
 </body>
 </html>
+
 
 
 
