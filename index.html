@@ -144,13 +144,14 @@
                         servicioUrl = 'https://www.disneyplus.com';  
                         logoUrl = 'https://cloudfront-us-east-1.images.arcpublishing.com/infobae/5EGT4P4UKRGAZPDR52FKJJW4YU.png';  
                         break;
+                    // Agregar más casos para otras plataformas aquí...
                     default:
                         servicioNombre = 'Abrir ' + params.servicio;
                         servicioUrl = '#';  
                         logoUrl = '';
                 }
 
-                // Crear el botón con el logo en círculo
+                // Crear el botón con el logo en círculo al costado izquierdo
                 servicioDiv.innerHTML = `
                     <button onclick="window.open('${servicioUrl}', '_blank')">
                         <div class="logo-circle">
