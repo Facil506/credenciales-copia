@@ -65,8 +65,8 @@
         }
 
         .logo-circle {
-            width: 60px; /* Tamaño original */
-            height: 60px; /* Tamaño original */
+            width: 80px; /* Tamaño ajustado */
+            height: 80px; /* Tamaño ajustado */
             border-radius: 50%;
             margin: 20px 0;
             overflow: hidden;
@@ -166,7 +166,7 @@
                     case 'disneyplus':
                         servicioNombre = 'Abrir Disney+';
                         servicioUrl = 'https://www.disneyplus.com';
-                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Disney%2B_logo.svg';
+                        logoUrl = 'https://cloudfront-us-east-1.images.arcpublishing.com/infobae/CH7VJ2UAYJGIRAEMF2VLF5XKBU.png';
                         break;
                     case 'netflix':
                         servicioNombre = 'Abrir Netflix';
@@ -191,7 +191,7 @@
                     case 'youtubepremium':
                         servicioNombre = 'Abrir YouTube Premium';
                         servicioUrl = 'https://www.youtube.com/premium';
-                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_Premium_Logo.svg';
+                        logoUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/YouTube_social_white_square_%282017%29.svg/1200px-YouTube_social_white_square_%282017%29.svg.png';
                         break;
                     case 'paramount':
                         servicioNombre = 'Abrir Paramount+';
@@ -207,22 +207,8 @@
                         servicioNombre = 'Abrir ' + params.servicio;
                         servicioUrl = '#';
                         logoUrl = 'https://via.placeholder.com/120';
-                }
+               
 
-                // Cambiar imagen de la plataforma
-                document.getElementById("logoPlataforma").src = logoUrl;
-
-                // Crear botón para abrir la plataforma
-                const buttonHTML = `<button onclick="window.open('${servicioUrl}', '_blank')">${servicioNombre}</button>`;
-                servicioDiv.innerHTML = buttonHTML;
-            }
-        }
-
-        // Llamamos a la función para mostrar las credenciales y servicio al cargar la página
-        mostrarCredenciales();
-    </script>
-</body>
-</html>
 
 
 
