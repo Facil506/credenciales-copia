@@ -23,7 +23,13 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            min-width: 300px; /* Ancho mínimo */
+            max-width: 90%; /* Ajuste responsivo */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .logo img {
@@ -32,7 +38,7 @@
         }
 
         h1 {
-            color: #F7931E; /* Título en color anaranjado */
+            color: #F7931E;
             font-size: 24px;
             margin-bottom: 20px;
         }
@@ -40,7 +46,7 @@
         .servicio-imagen img {
             width: 80px;
             height: 80px;
-            border-radius: 15%; /* Bordes redondeados */
+            border-radius: 15%;
             margin-bottom: 20px;
         }
 
@@ -48,11 +54,25 @@
             margin-bottom: 20px;
             font-size: 18px;
             text-align: left;
+            width: 100%;
+        }
+
+        .credenciales p {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            gap: 10px;
+            margin: 5px 0;
         }
 
         .credenciales span {
             display: inline-block;
-            width: 45%;
+            flex: 1; /* Se asegura que cada columna se ajuste */
+            text-align: left;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         button {
@@ -64,7 +84,7 @@
             font-size: 16px;
             cursor: pointer;
             margin: 10px 5px;
-            width: calc(50% - 20px); /* Tamaño uniforme para botones */
+            width: calc(50% - 20px);
             box-sizing: border-box;
         }
 
@@ -77,7 +97,7 @@
             margin-top: 20px;
             background-color: #4CAF50;
             border-color: #4CAF50;
-            width: 100%; /* Botón de abrir servicio ocupa toda la línea */
+            width: 100%;
         }
         
         .btn-abierto:hover {
@@ -92,7 +112,6 @@
         </div>
         <h1>¡Hazlo rápido, Hazlo fácil!</h1>
         
-        <!-- Imagen del servicio -->
         <div class="servicio-imagen">
             <img id="logoPlataforma" src="" alt="Logo del servicio">
         </div>
@@ -102,19 +121,16 @@
             <p><span>Contraseña:</span> <span id="contraseñaTexto"></span></p>
         </div>
 
-        <!-- Botones para copiar -->
         <div>
             <button onclick="copiarTexto('usuarioTexto')">Copiar Usuario</button>
             <button onclick="copiarTexto('contraseñaTexto')">Copiar Contraseña</button>
         </div>
 
-        <!-- PIN -->
         <div class="credenciales">
             <p><span>PIN:</span> <span id="pinTexto"></span></p>
             <button onclick="copiarTexto('pinTexto')">Copiar PIN</button>
         </div>
 
-        <!-- Botón para abrir el servicio -->
         <button id="btnAbrir" class="btn-abierto"></button>
     </div>
 
@@ -146,7 +162,7 @@
                 const servicio = params.servicio.toLowerCase();
                 let servicioUrl = '';
                 let logoUrl = '';
-                let servicioNombre = servicio.charAt(0).toUpperCase() + servicio.slice(1); // Capitalizar nombre
+                let servicioNombre = servicio.charAt(0).toUpperCase() + servicio.slice(1);
 
                 switch (servicio) {
                     case 'disneyplus':
