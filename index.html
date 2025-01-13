@@ -32,15 +32,15 @@
         }
 
         h1 {
-            color: #F7931E; /* Titulo en color anaranjado */
+            color: #F7931E; /* Título en color anaranjado */
             font-size: 24px;
             margin-bottom: 20px;
         }
 
         .servicio-imagen img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            border-radius: 15%; /* Bordes redondeados */
             margin-bottom: 20px;
         }
 
@@ -60,11 +60,12 @@
             color: white;
             border-radius: 10px;
             border: 2px solid #F7931E;
-            padding: 10px 20px;
+            padding: 10px;
             font-size: 16px;
             cursor: pointer;
             margin: 10px 5px;
-            width: 45%;
+            width: calc(50% - 20px); /* Tamaño uniforme para botones */
+            box-sizing: border-box;
         }
 
         button:hover {
@@ -76,6 +77,7 @@
             margin-top: 20px;
             background-color: #4CAF50;
             border-color: #4CAF50;
+            width: 100%; /* Botón de abrir servicio ocupa toda la línea */
         }
         
         .btn-abierto:hover {
@@ -113,7 +115,7 @@
         </div>
 
         <!-- Botón para abrir el servicio -->
-        <button id="btnAbrir" class="btn-abierto">Abrir Servicio</button>
+        <button id="btnAbrir" class="btn-abierto"></button>
     </div>
 
     <script>
@@ -144,39 +146,48 @@
                 const servicio = params.servicio.toLowerCase();
                 let servicioUrl = '';
                 let logoUrl = '';
+                let servicioNombre = servicio.charAt(0).toUpperCase() + servicio.slice(1); // Capitalizar nombre
 
                 switch (servicio) {
                     case 'disneyplus':
                         servicioUrl = 'https://www.disneyplus.com';
                         logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/disneyplus.png?raw=true';
+                        servicioNombre = 'Disney Plus';
                         break;
                     case 'netflix':
                         servicioUrl = 'https://www.netflix.com/login';
                         logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/netflix.png?raw=true';
+                        servicioNombre = 'Netflix';
                         break;
                     case 'max':
                         servicioUrl = 'https://www.hbomax.com';
                         logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/max.png?raw=true';
+                        servicioNombre = 'MAX';
                         break;
                     case 'vix':
                         servicioUrl = 'https://www.vix.com';
                         logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/vix.png?raw=true';
+                        servicioNombre = 'VIX';
                         break;
                     case 'spotify':
                         servicioUrl = 'https://www.spotify.com';
                         logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/spotify.png?raw=true';
+                        servicioNombre = 'Spotify';
                         break;
                     case 'youtubepremium':
                         servicioUrl = 'https://www.youtube.com/premium';
                         logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/youtube.png?raw=true';
+                        servicioNombre = 'YouTube Premium';
                         break;
                     case 'paramount':
                         servicioUrl = 'https://www.paramountplus.com';
                         logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/paramount.png?raw=true';
+                        servicioNombre = 'Paramount';
                         break;
                     case 'primevideo':
                         servicioUrl = 'https://www.primevideo.com';
                         logoUrl = 'https://github.com/Facil506/credenciales-copia/blob/main/primevideo.png?raw=true';
+                        servicioNombre = 'Prime Video';
                         break;
                 }
 
@@ -184,7 +195,9 @@
                     document.getElementById("logoPlataforma").src = logoUrl;
                 }
 
-                document.getElementById("btnAbrir").onclick = function() {
+                const btnAbrir = document.getElementById("btnAbrir");
+                btnAbrir.textContent = `Abrir ${servicioNombre}`;
+                btnAbrir.onclick = function() {
                     window.open(servicioUrl, '_blank');
                 };
             }
@@ -194,6 +207,7 @@
     </script>
 </body>
 </html>
+
 
 
 
